@@ -1,0 +1,65 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
+
+* {
+  font-family: "Roboto Mono", monospace !important;
+}
+
+body {
+  margin: 0;
+}
+
+.toolbar {
+  background-color: #1b1a1a;
+  height: 50px;
+  width: 100vw;
+  position: fixed;
+  color: white;
+  text-align: center;
+  font-size: 20px;
+  line-height: 50px;
+  position: relative;
+}
+
+.container {
+  margin: 50px 300px 50px 50px;
+}
+
+.sidebar {
+  width: 350px;
+  height: calc(100vh - 50px);
+  float: right;
+  background-color: grey;
+  padding-left: 15px;
+  color: #f7f7f7;
+}
+
+.sidebar h1 {
+  font-size: 24px;
+  font-weight: normal;
+}
+
+.circuit {
+  border: 1px solid lightgrey;
+}
+
+.qubit {
+  margin: 20px;
+  position: relative;
+}
+
+.qubit ::before {
+  border-top: 2px solid lightgrey;
+  content: "";
+  margin: 0 auto 0 75px; /* this centers the line to the full width specified */
+  position: absolute;
+  top: 12px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.react-switch {
+  vertical-align: middle;
+  margin-left: 4px;
+}
