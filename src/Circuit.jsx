@@ -12,7 +12,7 @@ class Circuit extends Component {
     return (
       <div className="circuit">
         {this.state.qubits.map((index) => (
-          <Qubit number={index} />
+          <Qubit number={index} options={this.props.options} />
         ))}
       </div>
     );

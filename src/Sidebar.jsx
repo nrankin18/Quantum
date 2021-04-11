@@ -3,11 +3,6 @@ import "./style.css";
 import Switch from "react-switch";
 
 class Sidebar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { showGateDrop: false };
-  }
-
   render() {
     return (
       <div className="sidebar">
@@ -16,8 +11,8 @@ class Sidebar extends Component {
         <label>
           <span>Display Gate Drop Locations:</span>
           <Switch
-            onChange={(e) => this.setState({ showGateDrop: e })}
-            checked={this.state.showGateDrop}
+            onChange={(e) => this.props.onSetOption({ showGateDrop: e })}
+            checked={this.props.options.showGateDrop}
             offColor="#b02e2e"
             className="react-switch"
           />
