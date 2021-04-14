@@ -1,7 +1,11 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
 * {
-  font-family: "Roboto Mono", monospace !important;
+  font-family: "Roboto Mono", monospace;
+}
+
+.katex {
+  font-size: 1em !important;
 }
 
 body {
@@ -76,4 +80,79 @@ body {
 .react-switch {
   vertical-align: middle;
   margin-left: 4px;
+}
+
+.gate-menu {
+  margin-bottom: 20px;
+}
+
+.gate {
+  height: 25px;
+  width: 25px;
+  margin: 0 5px;
+  display: inline-block;
+  border: 2px solid black;
+  text-align: center;
+  line-height: 25px;
+  vertical-align: middle;
+  position: relative;
+  display: inline-block;
+}
+
+.gate.cnot {
+  background-color: orangered;
+  font-size: 10px;
+}
+
+.gate.h {
+  background-color: lightblue;
+  font-size: 18px;
+}
+
+.gate.t {
+  background-color: lightgreen;
+  font-size: 18px;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Edge, Opera and Firefox */
+}
+
+.gate .gate-tooltip {
+  visibility: hidden;
+  width: 120px;
+  bottom: 140%;
+  left: 50%;
+  margin-left: -60px;
+  background-color: black;
+  color: #fff;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+}
+
+.gate .gate-tooltip::after {
+  content: " ";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.gate:hover .gate-tooltip {
+  visibility: visible;
+}
+
+.hidden {
+  display: none;
 }
