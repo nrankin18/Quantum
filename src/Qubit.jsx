@@ -24,13 +24,58 @@ class Qubit extends Component {
           } else if (gate === "cnot") {
             return (
               <span className="gate-wrapper">
-                <Gate type="cnot" options={this.props.options} key={uuid()} />{" "}
+                <Gate type="cnot" options={this.props.options} key={uuid()} />
+              </span>
+            );
+          } else if (gate === "cnotUp") {
+            return (
+              <span className="gate-wrapper">
+                <Gate type="cnotUp" options={this.props.options} key={uuid()} />
+              </span>
+            );
+          } else if (gate === "cnotDown") {
+            return (
+              <span className="gate-wrapper">
+                <Gate
+                  type="cnotDown"
+                  options={this.props.options}
+                  key={uuid()}
+                />
               </span>
             );
           } else if (gate === "t") {
             return (
               <span className="gate-wrapper">
-                <Gate type="t" options={this.props.options} key={uuid()} />{" "}
+                <Gate type="t" options={this.props.options} key={uuid()} />
+              </span>
+            );
+          } else if (gate === "trig") {
+            return (
+              <span className="gate-wrapper">
+                <Gate type="trig" options={this.props.options} key={uuid()} />
+              </span>
+            );
+          } else if (gate === "connect") {
+            return (
+              <span className="gate-wrapper">
+                <Gate
+                  type="connect"
+                  options={this.props.options}
+                  key={uuid()}
+                />
+              </span>
+            );
+          } else if (gate === "trigopt") {
+            return (
+              <span className="gate-wrapper">
+                <Gate
+                  type="trigopt"
+                  qubit={this.props.number}
+                  index={index}
+                  options={this.props.options}
+                  key={uuid()}
+                  onSelectTrigger={this.props.onSelectTrigger}
+                />
               </span>
             );
           } else {

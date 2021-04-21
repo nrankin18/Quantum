@@ -127,17 +127,39 @@ class App extends Component {
   }
 
   onDragEnd(result) {
-    console.log(result.destination);
     if (
       result.destination &&
       result.destination.droppableId.charAt(0) === "q"
     ) {
       let tmpCircuit = this.state.circuit;
-      tmpCircuit[parseInt(result.destination.droppableId.charAt(1))][
-        parseInt(result.destination.droppableId.substring(3))
-      ] = result.draggableId;
+      const qubit = parseInt(result.destination.droppableId.charAt(1));
+      const col = parseInt(result.destination.droppableId.substring(3));
+      tmpCircuit[qubit][col] = result.draggableId;
+      if (result.draggableId === "cnot") {
+        for (var i = qubit + 1; i < tmpCircuit.length; i++) {
+          if (tmpCircuit[i][col] === "cnot") {
+            alert("Only one CNOT permitted per column");
+            return;
+          } else if (tmpCircuit[i][col] !== null) {
+            break;
+          } else {
+            tmpCircuit[i][col] = "trigopt";
+          }
+        }
+        for (var i = qubit - 1; i >= 0; i--) {
+          if (tmpCircuit[i][col] === "cnot") {
+            alert("Only one CNOT permitted per column");
+            return;
+          } else if (tmpCircuit[i][col] !== null) {
+            break;
+          } else {
+            tmpCircuit[i][col] = "trigopt";
+          }
+        }
+      }
       this.setState({ circuit: tmpCircuit });
     }
+    console.log(this.state.circuit);
   }
 
   onSetOption(option, state) {
@@ -163,6 +185,27 @@ class App extends Component {
     }
   }
 
+  onSelectTrigger(qubit, index) {
+    console.log(qubit, index);
+    let tmpCircuit = this.state.circuit;
+    let connecting = false;
+    for (var i = 0; i < tmpCircuit.length; i++) {
+      if (i === qubit) {
+        connecting = !connecting;
+      }
+      if (tmpCircuit[i][index] === "cnot") {
+        tmpCircuit[i][index] = connecting ? "cnotUp" : "cnotDown";
+        connecting = !connecting;
+        continue;
+      } else if (tmpCircuit[i][index] === "trigopt") {
+        tmpCircuit[i][index] = connecting ? "connect" : null;
+      }
+    }
+    tmpCircuit[qubit][index] = "trig";
+    this.setState({ circuit: tmpCircuit });
+    console.log(this.state.circuit);
+  }
+
   render() {
     return (
       <>
@@ -183,6 +226,7 @@ class App extends Component {
               <Circuit
                 options={this.state.options}
                 circuit={this.state.circuit}
+                onSelectTrigger={this.onSelectTrigger.bind(this)}
               />
               <hr />
               <h3>Measurement:</h3>

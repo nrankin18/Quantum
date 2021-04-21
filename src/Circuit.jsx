@@ -12,6 +12,7 @@ class Circuit extends Component {
             options={this.props.options}
             key={index}
             gates={qubit}
+            onSelectTrigger={this.props.onSelectTrigger}
           />
         ))}
       </div>

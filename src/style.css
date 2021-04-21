@@ -104,6 +104,27 @@ body {
 .gate.cnot {
   background-color: orangered;
   font-size: 10px;
+  z-index: 100;
+}
+
+.cnotUp {
+  width: 2px;
+  height: 45px;
+  background-color: black;
+  position: absolute;
+  top: -45px;
+  right: 11.5px;
+  z-index: -1000;
+}
+
+.cnotDown {
+  width: 2px;
+  height: 45px;
+  top: 25px;
+  background-color: black;
+  position: absolute;
+  right: 11.5px;
+  z-index: -1000;
 }
 
 .gate.h {
@@ -114,6 +135,52 @@ body {
 .gate.t {
   background-color: lightgreen;
   font-size: 18px;
+}
+
+.gate.trigopt {
+  border-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gate.trigopt > div {
+  height: 10px;
+  width: 10px;
+  background-color: grey;
+  border: 1px solid grey;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+
+.gate.trigopt > div:hover {
+  background-color: black;
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.gate.trig,
+.gate.connect {
+  border-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gate.trig > div {
+  height: 10px;
+  width: 10px;
+  background-color: black;
+  border: 1px solid black;
+  border-radius: 50%;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+}
+.gate.connect > div {
+  width: 2px;
+  height: 100px;
+  background-color: black;
 }
 
 .noselect {
