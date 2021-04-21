@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
 import { InlineMath } from "react-katex";
+import "katex/dist/katex.min.css";
 
 class Gate extends Component {
   render() {
