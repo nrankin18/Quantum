@@ -8,6 +8,7 @@ class Qubit extends Component {
   render() {
     return (
       <div className="qubit">
+        <span className="qubit-line"></span>
         <span>
           <strong>
             q<sub>{this.props.number}</sub>

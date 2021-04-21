@@ -134,23 +134,31 @@ class App extends Component {
       let tmpCircuit = this.state.circuit;
       const qubit = parseInt(result.destination.droppableId.charAt(1));
       const col = parseInt(result.destination.droppableId.substring(3));
-      tmpCircuit[qubit][col] = result.draggableId;
       if (result.draggableId === "cnot") {
-        for (var i = qubit + 1; i < tmpCircuit.length; i++) {
-          if (tmpCircuit[i][col] === "cnot") {
-            alert("Only one CNOT permitted per column");
+        for (var i = 0; i < tmpCircuit.length; i++) {
+          if (
+            i !== qubit &&
+            (tmpCircuit[i][col] === "cnot" ||
+              tmpCircuit[i][col] === "cnotUp" ||
+              tmpCircuit[i][col] === "cnotDown")
+          ) {
+            alert("Error: Only one CNOT allowed per column");
             return;
-          } else if (tmpCircuit[i][col] !== null) {
+          }
+        }
+      }
+      tmpCircuit[qubit][col] = result.draggableId;
+
+      if (result.draggableId === "cnot") {
+        for (i = qubit + 1; i < tmpCircuit.length; i++) {
+          if (tmpCircuit[i][col] !== null) {
             break;
           } else {
             tmpCircuit[i][col] = "trigopt";
           }
         }
-        for (var i = qubit - 1; i >= 0; i--) {
-          if (tmpCircuit[i][col] === "cnot") {
-            alert("Only one CNOT permitted per column");
-            return;
-          } else if (tmpCircuit[i][col] !== null) {
+        for (i = qubit - 1; i >= 0; i--) {
+          if (tmpCircuit[i][col] !== null) {
             break;
           } else {
             tmpCircuit[i][col] = "trigopt";
@@ -159,7 +167,6 @@ class App extends Component {
       }
       this.setState({ circuit: tmpCircuit });
     }
-    console.log(this.state.circuit);
   }
 
   onSetOption(option, state) {

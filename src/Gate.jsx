@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./style.css";
-import { InlineMath } from "react-katex";
+import { BlockMath } from "react-katex";
 import "katex/dist/katex.min.css";
 
 class Gate extends Component {
@@ -19,7 +19,7 @@ class Gate extends Component {
                 this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
               }
             >
-              <InlineMath math="\begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}" />
+              <BlockMath math="\begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}" />
             </span>
           </div>
         );
@@ -36,7 +36,7 @@ class Gate extends Component {
                 this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
               }
             >
-              <InlineMath math="\begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}" />
+              <BlockMath math="\begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}" />
             </span>
             <span className="cnotUp" />
           </div>
@@ -54,7 +54,7 @@ class Gate extends Component {
                 this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
               }
             >
-              <InlineMath math="\begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}" />
+              <BlockMath math="\begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}" />
             </span>
             <span className="cnotDown" />
           </div>
@@ -72,7 +72,7 @@ class Gate extends Component {
                 this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
               }
             >
-              <InlineMath math="\frac1{\sqrt2}\begin{bmatrix}1&1\\ 1&-1\end{bmatrix}" />
+              <BlockMath math="\frac1{\sqrt2}\begin{bmatrix}1&1\\ 1&-1\end{bmatrix}" />
             </span>
           </div>
         );
@@ -89,7 +89,7 @@ class Gate extends Component {
                 this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
               }
             >
-              <InlineMath math="\begin{bmatrix}1&0\\ 0&e^{i\pi /4}\end{bmatrix}" />
+              <BlockMath math="\begin{bmatrix}1&0\\ 0&e^{i\pi /4}\end{bmatrix}" />
             </span>
           </div>
         );
