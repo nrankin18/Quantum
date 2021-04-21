@@ -193,7 +193,6 @@ class App extends Component {
   }
 
   onSelectTrigger(qubit, index) {
-    console.log(qubit, index);
     let tmpCircuit = this.state.circuit;
     let connecting = false;
     for (var i = 0; i < tmpCircuit.length; i++) {
@@ -209,6 +208,24 @@ class App extends Component {
       }
     }
     tmpCircuit[qubit][index] = "trig";
+    this.setState({ circuit: tmpCircuit });
+    console.log(this.state.circuit);
+  }
+
+  onDeleteGate(qubit, index, isCNOT) {
+    let tmpCircuit = this.state.circuit;
+    tmpCircuit[qubit][index] = null;
+    if (isCNOT) {
+      for (var i = 0; i < tmpCircuit.length; i++) {
+        if (
+          tmpCircuit[i][index] === "trig" ||
+          tmpCircuit[i][index] === "connect" ||
+          tmpCircuit[i][index] === "trigopt"
+        )
+          tmpCircuit[i][index] = null;
+      }
+    }
+
     this.setState({ circuit: tmpCircuit });
     console.log(this.state.circuit);
   }
@@ -234,6 +251,7 @@ class App extends Component {
                 options={this.state.options}
                 circuit={this.state.circuit}
                 onSelectTrigger={this.onSelectTrigger.bind(this)}
+                onDeleteGate={this.onDeleteGate.bind(this)}
               />
               <hr />
               <h3>Measurement:</h3>

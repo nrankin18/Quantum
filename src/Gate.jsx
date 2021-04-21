@@ -9,9 +9,17 @@ class Gate extends Component {
       case "cnot":
         return (
           <div
-            className="gate cnot noselect"
+            className={
+              this.props.onDelete
+                ? "gate cnot noselect deletable"
+                : "gate cnot noselect"
+            }
             {...this.props}
             ref={this.props.innerRef}
+            onDoubleClick={(e) => {
+              if (this.props.onDelete)
+                this.props.onDelete(this.props.qubit, this.props.index, true);
+            }}
           >
             CNOT
             <span
@@ -26,9 +34,17 @@ class Gate extends Component {
       case "cnotUp":
         return (
           <div
-            className="gate cnot noselect"
+            className={
+              this.props.onDelete
+                ? "gate cnot noselect deletable"
+                : "gate cnot noselect"
+            }
             {...this.props}
             ref={this.props.innerRef}
+            onDoubleClick={(e) => {
+              if (this.props.onDelete)
+                this.props.onDelete(this.props.qubit, this.props.index, true);
+            }}
           >
             CNOT
             <span
@@ -44,9 +60,17 @@ class Gate extends Component {
       case "cnotDown":
         return (
           <div
-            className="gate cnot noselect"
+            className={
+              this.props.onDelete
+                ? "gate cnot noselect deletable"
+                : "gate cnot noselect"
+            }
             {...this.props}
             ref={this.props.innerRef}
+            onDoubleClick={(e) => {
+              if (this.props.onDelete)
+                this.props.onDelete(this.props.qubit, this.props.index, true);
+            }}
           >
             CNOT
             <span
@@ -62,9 +86,17 @@ class Gate extends Component {
       case "h":
         return (
           <div
-            className="gate h noselect"
+            className={
+              this.props.onDelete
+                ? "gate h noselect deletable"
+                : "gate h noselect"
+            }
             {...this.props}
             ref={this.props.innerRef}
+            onDoubleClick={(e) => {
+              if (this.props.onDelete)
+                this.props.onDelete(this.props.qubit, this.props.index, false);
+            }}
           >
             H
             <span
@@ -79,9 +111,17 @@ class Gate extends Component {
       case "t":
         return (
           <div
-            className="gate t noselect"
+            className={
+              this.props.onDelete
+                ? "gate t noselect deletable"
+                : "gate t noselect"
+            }
             {...this.props}
             ref={this.props.innerRef}
+            onDoubleClick={(e) => {
+              if (this.props.onDelete)
+                this.props.onDelete(this.props.qubit, this.props.index, false);
+            }}
           >
             T
             <span

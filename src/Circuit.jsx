@@ -13,6 +13,7 @@ class Circuit extends Component {
             key={index}
             gates={qubit}
             onSelectTrigger={this.props.onSelectTrigger}
+            onDeleteGate={this.props.onDeleteGate}
           />
         ))}
       </div>

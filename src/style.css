@@ -109,6 +109,10 @@ body {
   z-index: 10;
 }
 
+.deletable:hover {
+  cursor: crosshair;
+}
+
 .cnotUp {
   width: 2px;
   height: 45px;
