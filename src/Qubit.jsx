@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
+import { Droppable } from "react-beautiful-dnd";
+import { v4 as uuid } from "uuid";
 
 class Qubit extends Component {
   constructor(props) {
@@ -19,11 +21,21 @@ class Qubit extends Component {
         {this.state.gates.map(() => (
           <span />
         ))}
-        <span
-          className={
-            this.props.options.showGateDrop ? "gate-drop show" : "gate-drop"
-          }
-        />
+        <Droppable droppableId={uuid()} key={uuid()} direction="horizontal">
+          {(provided) => {
+            return (
+              <span
+                {...provided.droppableProps}
+                ref={provided.innerRef}
+                className={
+                  this.props.options.showGateDrop
+                    ? "gate-drop show"
+                    : "gate-drop"
+                }
+              />
+            );
+          }}
+        </Droppable>
       </div>
     );
   }

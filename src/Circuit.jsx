@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Qubit from "./Qubit";
 import "./style.css";
+import { v4 as uuid } from "uuid";
 
 class Circuit extends Component {
   constructor(props) {
@@ -12,7 +13,7 @@ class Circuit extends Component {
     return (
       <div className="circuit">
         {this.state.qubits.map((index) => (
-          <Qubit number={index} options={this.props.options} />
+          <Qubit number={index} options={this.props.options} key={uuid()} />
         ))}
       </div>
     );

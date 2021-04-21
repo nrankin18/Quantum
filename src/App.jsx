@@ -3,6 +3,7 @@ import Circuit from "./Circuit";
 import Toolbar from "./Toolbar";
 import Sidebar from "./Sidebar";
 import GateMenu from "./GateMenu";
+import { DragDropContext } from "react-beautiful-dnd";
 
 class App extends Component {
   constructor(props) {
@@ -42,17 +43,19 @@ class App extends Component {
           onSetOption={this.onSetOption.bind(this)}
         />
         <div className="container">
-          <div>
-            <h2>New Program &gt;</h2>
-            <hr />
-            <h3>Gates:</h3>
-            <GateMenu options={this.state.options} />
-            <hr />
-            <h3>Circuit:</h3>
-            <Circuit options={this.state.options} />
-            <hr />
-            <h3>Measurement:</h3>
-          </div>
+          <DragDropContext>
+            <div>
+              <h2>New Program &gt;</h2>
+              <hr />
+              <h3>Gates:</h3>
+              <GateMenu options={this.state.options} />
+              <hr />
+              <h3>Circuit:</h3>
+              <Circuit options={this.state.options} />
+              <hr />
+              <h3>Measurement:</h3>
+            </div>
+          </DragDropContext>
         </div>
       </>
     );
