@@ -104,7 +104,7 @@ body {
 }
 
 .gate.cnot {
-  background-color: orangered;
+  background-color: lightcoral;
   font-size: 10px;
   z-index: 10;
 }
