@@ -36,8 +36,8 @@ class Gate extends Component {
           <div
             className={
               this.props.onDelete
-                ? "gate cnot noselect deletable"
-                : "gate cnot noselect"
+                ? "gate cnot x noselect deletable"
+                : "gate cnot x noselect"
             }
             {...this.props}
             ref={this.props.innerRef}
@@ -46,7 +46,7 @@ class Gate extends Component {
                 this.props.onDelete(this.props.qubit, this.props.index, true);
             }}
           >
-            CNOT
+            X
             <span
               className={
                 this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
@@ -62,8 +62,8 @@ class Gate extends Component {
           <div
             className={
               this.props.onDelete
-                ? "gate cnot noselect deletable"
-                : "gate cnot noselect"
+                ? "gate cnot x noselect deletable"
+                : "gate cnot x noselect"
             }
             {...this.props}
             ref={this.props.innerRef}
@@ -72,7 +72,7 @@ class Gate extends Component {
                 this.props.onDelete(this.props.qubit, this.props.index, true);
             }}
           >
-            CNOT
+            X
             <span
               className={
                 this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
