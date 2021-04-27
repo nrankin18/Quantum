@@ -52,7 +52,7 @@ class Gate extends Component {
                 this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
               }
             >
-              <BlockMath math="\begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}" />
+              <BlockMath math="\begin{bmatrix}0&1\\ 1&0\end{bmatrix}" />
             </span>
             <span className="cnotUp" />
           </div>
@@ -78,7 +78,7 @@ class Gate extends Component {
                 this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
               }
             >
-              <BlockMath math="\begin{bmatrix}1&0&0&0\\ 0&1&0&0\\ 0&0&0&1\\ 0&0&1&0\end{bmatrix}" />
+              <BlockMath math="\begin{bmatrix}0&1\\ 1&0\end{bmatrix}" />
             </span>
             <span className="cnotDown" />
           </div>

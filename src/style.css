@@ -42,9 +42,13 @@ body {
   font-weight: normal;
 }
 
+.circuit-wrapper {
+  padding-top: 80px;
+  overflow-x: scroll;
+}
+
 .circuit {
   border: 1px solid lightgrey;
-  overflow-x: scroll;
 }
 
 .qubit {
