@@ -4,6 +4,7 @@ import Toolbar from "./Toolbar";
 import Sidebar from "./Sidebar";
 import GateMenu from "./GateMenu";
 import { DragDropContext } from "react-beautiful-dnd";
+import Measure from "./Measure";
 
 class App extends Component {
   constructor(props) {
@@ -214,6 +215,7 @@ class App extends Component {
             </div>
           </DragDropContext>
         </div>
+        <Measure circuit={this.state.circuit} />
       </>
     );
   }
