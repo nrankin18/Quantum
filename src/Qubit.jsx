@@ -76,6 +76,17 @@ class Qubit extends Component {
                 />
               </span>
             );
+          } else if (gate === "measure") {
+            return (
+              <span className="gate-wrapper" key={uuid()}>
+                <Gate
+                  type="measure"
+                  qubit={this.props.number}
+                  index={index}
+                  options={this.props.options}
+                />
+              </span>
+            );
           } else if (gate === "trig") {
             return (
               <span className="gate-wrapper" key={uuid()}>

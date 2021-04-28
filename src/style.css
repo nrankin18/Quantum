@@ -47,9 +47,11 @@ body {
 .circuit-wrapper {
   padding-top: 80px;
   overflow-x: scroll;
+  max-width: 1152px;
 }
 
 .circuit {
+  width: 1150px;
   border: 1px solid lightgrey;
 }
 
@@ -159,6 +161,12 @@ body {
 .gate.t {
   background-color: lightgreen;
   font-size: 18px;
+}
+
+.gate.measure {
+  background-color: lightgoldenrodyellow;
+  font-size: 18px;
+  display: inline-block;
 }
 
 .gate.trigopt {
@@ -289,12 +297,16 @@ body {
   display: none;
 }
 
-.measure {
-  display: flex;
+.output {
+  font-size: 2em;
 }
 
 .measure > div {
-  margin-left: 5%;
+  padding: 0 20px;
+}
+
+.measure {
+  display: flex;
 }
 
 .button {

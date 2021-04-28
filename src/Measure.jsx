@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import * as math from "mathjs";
 import "./style.css";
+import seedrandom from "seedrandom";
 
 class Measure extends Component {
   constructor(props) {
@@ -192,12 +193,20 @@ class Measure extends Component {
     }
 
     const probabilities = [];
+    const outcomes = [];
     for (i = 0; i < Math.pow(2, this.props.circuit.length); i++) {
       var probability;
       if (this.state.stateVector[i] !== undefined) {
         const re = Math.pow(math.re(this.state.stateVector[i]), 2);
         const im = Math.pow(math.im(this.state.stateVector[i]), 2);
         probability = math.round(re + im, 3);
+
+        const probabilityCount = probability * 100;
+        for (var j = 0; j < probabilityCount; j++) {
+          outcomes.push(
+            (i >>> 0).toString(2).padStart(this.props.circuit.length, "0")
+          );
+        }
       } else probability = "???";
       probabilities.push(
         <div key={i}>
@@ -211,15 +220,32 @@ class Measure extends Component {
         </div>
       );
     }
+    var seed = seedrandom(this.props.options.randomSeed);
+    const output = outcomes[Math.floor(seed() * outcomes.length)];
+
+    const qubitOutput = [];
+    for (i = 0; i < this.props.circuit.length; i++) {
+      qubitOutput.push(
+        <div className="output">
+          <strong key={i}>
+            q<sub>{i}</sub>:
+          </strong>
+          <span>{(output + "").charAt(i)}</span>
+          <br />
+        </div>
+      );
+    }
+
     return (
       <div className="measure">
+        <div className="outcome">{qubitOutput}</div>
         <div className={this.props.options.showStatevector ? "" : "hidden"}>
-          <h4>Statevector:</h4>
+          <div>Statevector:</div>
           <div>{qubits}</div>
           {states}
         </div>
         <div className={this.props.options.showStatevector ? "hidden" : ""}>
-          <h4>Probability:</h4>
+          <div>Probability:</div>
           <div>{qubits}</div>
           {probabilities}
         </div>

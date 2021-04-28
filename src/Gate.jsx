@@ -2,10 +2,22 @@ import React, { Component } from "react";
 import "./style.css";
 import { BlockMath } from "react-katex";
 import "katex/dist/katex.min.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTachometerAlt } from "@fortawesome/free-solid-svg-icons";
 
 class Gate extends Component {
   render() {
     switch (this.props.type) {
+      case "measure":
+        return (
+          <div
+            className={"gate measure"}
+            {...this.props}
+            ref={this.props.innerRef}
+          >
+            <FontAwesomeIcon icon={faTachometerAlt} />
+          </div>
+        );
       case "cnot":
         return (
           <div
