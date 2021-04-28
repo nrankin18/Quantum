@@ -178,7 +178,11 @@ class Measure extends Component {
     for (i = 0; i < Math.pow(2, this.props.circuit.length); i++) {
       states.push(
         <div key={i}>
-          {(i >>> 0).toString(2).padStart(3, "0").split("").join(" ") +
+          {(i >>> 0)
+            .toString(2)
+            .padStart(this.props.circuit.length, "0")
+            .split("")
+            .join(" ") +
             ": " +
             (this.state.stateVector[i] !== undefined
               ? math.round(this.state.stateVector[i], 3)
@@ -186,11 +190,39 @@ class Measure extends Component {
         </div>
       );
     }
+
+    const probabilities = [];
+    for (i = 0; i < Math.pow(2, this.props.circuit.length); i++) {
+      var probability;
+      if (this.state.stateVector[i] !== undefined) {
+        const re = Math.pow(math.re(this.state.stateVector[i]), 2);
+        const im = Math.pow(math.im(this.state.stateVector[i]), 2);
+        probability = math.round(re + im, 3);
+      } else probability = "???";
+      probabilities.push(
+        <div key={i}>
+          {(i >>> 0)
+            .toString(2)
+            .padStart(this.props.circuit.length, "0")
+            .split("")
+            .join(" ") +
+            ": " +
+            (this.state.stateVector[i] !== undefined ? probability : "???")}
+        </div>
+      );
+    }
     return (
       <div className="measure">
-        <h4>Statevector:</h4>
-        <div>{qubits}</div>
-        {states}
+        <div className={this.props.options.showStatevector ? "" : "hidden"}>
+          <h4>Statevector:</h4>
+          <div>{qubits}</div>
+          {states}
+        </div>
+        <div className={this.props.options.showStatevector ? "hidden" : ""}>
+          <h4>Probability:</h4>
+          <div>{qubits}</div>
+          {probabilities}
+        </div>
       </div>
     );
   }

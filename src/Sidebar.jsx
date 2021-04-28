@@ -18,22 +18,32 @@ class Sidebar extends Component {
         To delete a gate, double click on it.
         <h1>Debug:</h1>
         <hr />
-        <label>
-          <span>Display Gate Drop Locations:</span>
-          <Switch
-            onChange={(e) => this.props.onSetOption("showGateDrop", e)}
-            checked={this.props.options.showGateDrop}
-            offColor="#b02e2e"
-            className="react-switch"
-          />
-          <span>Display Gate Matrices:</span>
-          <Switch
-            onChange={(e) => this.props.onSetOption("showGateMatrix", e)}
-            checked={this.props.options.showGateMatrix}
-            offColor="#b02e2e"
-            className="react-switch"
-          />
-        </label>
+        <br />
+        <span>Display Gate Drop Locations:</span>
+        <Switch
+          onChange={(e) => this.props.onSetOption("showGateDrop", e)}
+          checked={this.props.options.showGateDrop}
+          offColor="#b02e2e"
+          className="react-switch"
+        />
+        <br />
+        <br />
+        <span>Display Gate Matrices:</span>
+        <Switch
+          onChange={(e) => this.props.onSetOption("showGateMatrix", e)}
+          checked={this.props.options.showGateMatrix}
+          offColor="#b02e2e"
+          className="react-switch"
+        />
+        <br />
+        <br />
+        <span>Display Statevector:</span>
+        <Switch
+          onChange={(e) => this.props.onSetOption("showStatevector", e)}
+          checked={this.props.options.showStatevector}
+          offColor="#b02e2e"
+          className="react-switch"
+        />
       </div>
     );
   }

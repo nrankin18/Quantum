@@ -18,6 +18,15 @@ class Circuit extends Component {
             />
           ))}
         </div>
+        <button className="button" onClick={() => this.props.onAddQubit()}>
+          Add qubit
+        </button>
+        <button className="button" onClick={() => this.props.onRemoveQubit()}>
+          Remove qubit
+        </button>
+        <button className="button" onClick={() => this.props.onClearCircuit()}>
+          Reset circuit
+        </button>
       </div>
     );
   }

@@ -10,7 +10,11 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      options: { showGateDrop: false, showGateMatrix: false },
+      options: {
+        showGateDrop: false,
+        showGateMatrix: false,
+        showStatevector: false,
+      },
 
       circuit: [
         [
@@ -144,6 +148,14 @@ class App extends Component {
           },
         }));
         break;
+      case "showStatevector":
+        this.setState((prevState) => ({
+          options: {
+            ...prevState.options,
+            showStatevector: state,
+          },
+        }));
+        break;
       default:
         return;
     }
@@ -185,6 +197,116 @@ class App extends Component {
     this.setState({ circuit: tmpCircuit });
   }
 
+  onClearCircuit() {
+    this.setState({
+      circuit: [
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+        ],
+        [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+        ],
+      ],
+    });
+  }
+
+  onAddQubit() {
+    var tmpCircuit = this.state.circuit;
+    if (tmpCircuit.length < 10) {
+      tmpCircuit.push([
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+      ]);
+    }
+    this.setState({ circuit: tmpCircuit });
+  }
+
+  onRemoveQubit() {
+    var tmpCircuit = this.state.circuit;
+    if (tmpCircuit.length > 1) {
+      tmpCircuit.pop();
+    }
+    this.setState({ circuit: tmpCircuit });
+  }
+
   render() {
     return (
       <>
@@ -207,10 +329,16 @@ class App extends Component {
                 circuit={this.state.circuit}
                 onSelectTrigger={this.onSelectTrigger.bind(this)}
                 onDeleteGate={this.onDeleteGate.bind(this)}
+                onClearCircuit={this.onClearCircuit.bind(this)}
+                onAddQubit={this.onAddQubit.bind(this)}
+                onRemoveQubit={this.onRemoveQubit.bind(this)}
               />
               <hr />
               <h3>Measurement:</h3>
-              <Measure circuit={[].concat(this.state.circuit)} />
+              <Measure
+                circuit={[].concat(this.state.circuit)}
+                options={this.state.options}
+              />
             </div>
           </DragDropContext>
         </div>
