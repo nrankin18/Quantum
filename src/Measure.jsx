@@ -21,7 +21,7 @@ class Measure extends Component {
 
   // a = e^(i pi/4)*a
   phaseTransition(a) {
-    return math.evaluate("e^(i*pi/4)*" + a);
+    return math.evaluate("e^((i*pi)/4)*(" + a + ")");
   }
 
   swap(a, b) {
