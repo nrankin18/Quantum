@@ -44,6 +44,14 @@ class Sidebar extends Component {
           offColor="#b02e2e"
           className="react-switch"
         />
+        <br />
+        <br />
+        <span>Random seed:</span>
+        <input
+          className="input"
+          value={this.props.options.randomSeed}
+          onChange={(e) => this.props.onSetOption("setSeed", e)}
+        ></input>
       </div>
     );
   }

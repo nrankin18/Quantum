@@ -13,7 +13,8 @@ class App extends Component {
       options: {
         showGateDrop: false,
         showGateMatrix: false,
-        showStatevector: false,
+        showStatevector: true,
+        randomSeed: "2021",
       },
 
       circuit: [
@@ -153,6 +154,15 @@ class App extends Component {
           options: {
             ...prevState.options,
             showStatevector: state,
+          },
+        }));
+        break;
+      case "setSeed":
+        console.log(state.target.value);
+        this.setState((prevState) => ({
+          options: {
+            ...prevState.options,
+            randomSeed: state.target.value,
           },
         }));
         break;

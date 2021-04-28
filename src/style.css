@@ -91,6 +91,12 @@ body {
   float: right;
 }
 
+.input {
+  float: right;
+  margin-right: 14px;
+  text-align: right;
+}
+
 .gate-menu {
   margin-bottom: 20px;
 }
