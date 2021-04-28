@@ -53,9 +53,9 @@ class Measure extends Component {
         const index = l + k * Math.pow(2, N - j) + Math.pow(2, N - j - 1);
         const change = this.phaseTransition(tmpStateVector[index]);
         tmpStateVector[index] = change;
-        return tmpStateVector;
       }
     }
+    return tmpStateVector;
   }
 
   // m = trigger, n = not
