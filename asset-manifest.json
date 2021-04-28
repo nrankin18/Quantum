@@ -1,24 +1,24 @@
 {
   "files": {
-    "main.css": "/quantum/static/css/main.a5bfd353.chunk.css",
-    "main.js": "/quantum/static/js/main.6081e1f5.chunk.js",
-    "main.js.map": "/quantum/static/js/main.6081e1f5.chunk.js.map",
+    "main.css": "/quantum/static/css/main.a007d3c7.chunk.css",
+    "main.js": "/quantum/static/js/main.ca7aa455.chunk.js",
+    "main.js.map": "/quantum/static/js/main.ca7aa455.chunk.js.map",
     "runtime-main.js": "/quantum/static/js/runtime-main.0eb33853.js",
     "runtime-main.js.map": "/quantum/static/js/runtime-main.0eb33853.js.map",
     "static/css/2.d0685048.chunk.css": "/quantum/static/css/2.d0685048.chunk.css",
-    "static/js/2.f37bd13b.chunk.js": "/quantum/static/js/2.f37bd13b.chunk.js",
-    "static/js/2.f37bd13b.chunk.js.map": "/quantum/static/js/2.f37bd13b.chunk.js.map",
+    "static/js/2.73dabe46.chunk.js": "/quantum/static/js/2.73dabe46.chunk.js",
+    "static/js/2.73dabe46.chunk.js.map": "/quantum/static/js/2.73dabe46.chunk.js.map",
     "index.html": "/quantum/index.html",
     "static/css/2.d0685048.chunk.css.map": "/quantum/static/css/2.d0685048.chunk.css.map",
-    "static/css/main.a5bfd353.chunk.css.map": "/quantum/static/css/main.a5bfd353.chunk.css.map",
-    "static/js/2.f37bd13b.chunk.js.LICENSE.txt": "/quantum/static/js/2.f37bd13b.chunk.js.LICENSE.txt",
+    "static/css/main.a007d3c7.chunk.css.map": "/quantum/static/css/main.a007d3c7.chunk.css.map",
+    "static/js/2.73dabe46.chunk.js.LICENSE.txt": "/quantum/static/js/2.73dabe46.chunk.js.LICENSE.txt",
     "static/media/katex.min.css": "/quantum/static/media/KaTeX_Typewriter-Regular.b6a56b14.woff"
   },
   "entrypoints": [
     "static/js/runtime-main.0eb33853.js",
     "static/css/2.d0685048.chunk.css",
-    "static/js/2.f37bd13b.chunk.js",
-    "static/css/main.a5bfd353.chunk.css",
-    "static/js/main.6081e1f5.chunk.js"
+    "static/js/2.73dabe46.chunk.js",
+    "static/css/main.a007d3c7.chunk.css",
+    "static/js/main.ca7aa455.chunk.js"
   ]
 }
