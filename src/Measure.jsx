@@ -15,8 +15,8 @@ class Measure extends Component {
   // b = 1/sqrt(2)*(a-b)
   redistribute(a, b) {
     return {
-      a: math.evaluate("1/sqrt(2)*(" + a + "+" + b + ")"),
-      b: math.evaluate("1/sqrt(2)*(" + a + "-" + b + ")"),
+      a: math.evaluate("1/sqrt(2)*((" + a + ")+(" + b + "))"),
+      b: math.evaluate("1/sqrt(2)*((" + a + ")-(" + b + "))"),
     };
   }
 
@@ -41,9 +41,9 @@ class Measure extends Component {
         );
         stateVector[index0] = change.a;
         stateVector[index1] = change.b;
-        return stateVector;
       }
     }
+    return stateVector;
   }
 
   evalTGate(j, tmpStateVector) {
