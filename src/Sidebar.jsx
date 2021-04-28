@@ -16,7 +16,7 @@ class Sidebar extends Component {
         <br />
         <br />
         To delete a gate, double click on it.
-        <h1>Debug:</h1>
+        <h1>Options:</h1>
         <hr />
         <br />
         <span>Display Gate Drop Locations:</span>
