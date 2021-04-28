@@ -166,7 +166,6 @@ class App extends Component {
     }
     tmpCircuit[qubit][index] = "trig";
     this.setState({ circuit: tmpCircuit });
-    console.log(this.state.circuit);
   }
 
   onDeleteGate(qubit, index, isCNOT) {
@@ -184,7 +183,6 @@ class App extends Component {
     }
 
     this.setState({ circuit: tmpCircuit });
-    console.log(this.state.circuit);
   }
 
   render() {
@@ -212,10 +210,10 @@ class App extends Component {
               />
               <hr />
               <h3>Measurement:</h3>
+              <Measure circuit={[].concat(this.state.circuit)} />
             </div>
           </DragDropContext>
         </div>
-        <Measure circuit={this.state.circuit} />
       </>
     );
   }
