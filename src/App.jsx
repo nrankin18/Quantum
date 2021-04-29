@@ -386,7 +386,6 @@ class App extends Component {
                 onRemoveQubit={this.onRemoveQubit.bind(this)}
               />
               <hr />
-              <h3>Measurement:</h3>
               <Measure
                 circuit={[].concat(this.state.circuit)}
                 options={this.state.options}

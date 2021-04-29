@@ -168,7 +168,12 @@ class Measure extends Component {
 
   render() {
     const qubits = [];
-    for (var i = 0; i < this.props.circuit.length; i++) {
+    qubits.push(
+      <strong key={0}>
+        &nbsp;q<sub>0</sub>
+      </strong>
+    );
+    for (var i = 1; i < this.props.circuit.length; i++) {
       qubits.push(
         <strong key={i}>
           q<sub>{i}</sub>
@@ -179,12 +184,13 @@ class Measure extends Component {
     for (i = 0; i < Math.pow(2, this.props.circuit.length); i++) {
       states.push(
         <div key={i}>
+          |
           {(i >>> 0)
             .toString(2)
             .padStart(this.props.circuit.length, "0")
             .split("")
             .join(" ") +
-            ": " +
+            "⟩: " +
             (this.state.stateVector[i] !== undefined
               ? math.round(this.state.stateVector[i], 3)
               : "???")}
@@ -210,12 +216,13 @@ class Measure extends Component {
       } else probability = "???";
       probabilities.push(
         <div key={i}>
+          |
           {(i >>> 0)
             .toString(2)
             .padStart(this.props.circuit.length, "0")
             .split("")
             .join(" ") +
-            ": " +
+            "⟩: " +
             (this.state.stateVector[i] !== undefined ? probability : "???")}
         </div>
       );
@@ -228,9 +235,9 @@ class Measure extends Component {
       qubitOutput.push(
         <div className="output">
           <strong key={i}>
-            q<sub>{i}</sub>:
+            q<sub>{i}</sub>: |
           </strong>
-          <span>{(output + "").charAt(i)}</span>
+          <span>{(output + "").charAt(i)}</span>⟩
           <br />
         </div>
       );
@@ -238,14 +245,17 @@ class Measure extends Component {
 
     return (
       <div className="measure">
-        <div className="outcome">{qubitOutput}</div>
+        <div className="outcome">
+          <h3>Measurement:</h3>
+          {qubitOutput}
+        </div>
         <div className={this.props.options.showStatevector ? "" : "hidden"}>
-          <div>Statevector:</div>
+          <h3>Statevector:</h3>
           <div>{qubits}</div>
           {states}
         </div>
         <div className={this.props.options.showStatevector ? "hidden" : ""}>
-          <div>Probability:</div>
+          <h3>Probability:</h3>
           <div>{qubits}</div>
           {probabilities}
         </div>
