@@ -26,6 +26,11 @@ class Measure extends Component {
     return math.evaluate("e^((i*pi)/4)*(" + a + ")");
   }
 
+  // a = i*a
+  phaseTransitionS(a) {
+    return math.evaluate("i*(" + a + ")");
+  }
+
   // Swaps a and b
   swap(a, b) {
     return { a: b, b: a };
@@ -56,6 +61,19 @@ class Measure extends Component {
       for (var l = 0; l < Math.pow(2, N - j - 1); l++) {
         const index = l + k * Math.pow(2, N - j) + Math.pow(2, N - j - 1);
         const change = this.phaseTransition(tmpStateVector[index]);
+        tmpStateVector[index] = change;
+      }
+    }
+    return tmpStateVector;
+  }
+
+  // Function called when S gate encountered
+  evalSGate(j, tmpStateVector) {
+    const N = this.props.circuit.length;
+    for (var k = 0; k < Math.pow(2, j); k++) {
+      for (var l = 0; l < Math.pow(2, N - j - 1); l++) {
+        const index = l + k * Math.pow(2, N - j) + Math.pow(2, N - j - 1);
+        const change = this.phaseTransitionS(tmpStateVector[index]);
         tmpStateVector[index] = change;
       }
     }
@@ -118,6 +136,9 @@ class Measure extends Component {
             break;
           case "t":
             tmpStateVector = this.evalTGate(j, tmpStateVector);
+            break;
+          case "s":
+            tmpStateVector = this.evalSGate(j, tmpStateVector);
             break;
           case "trig":
             if (foundCNOT) break;

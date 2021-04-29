@@ -163,6 +163,11 @@ body {
   font-size: 18px;
 }
 
+.gate.s {
+  background-color: lightpink;
+  font-size: 18px;
+}
+
 .gate.measure {
   background-color: lightgoldenrodyellow;
   font-size: 18px;

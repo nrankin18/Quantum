@@ -58,6 +58,21 @@ class GateMenu extends Component {
                     }}
                   </Draggable>
                 </span>
+                <span className="gate-wrapper">
+                  <Draggable key={3} draggableId={"s"} index={0}>
+                    {(provided) => {
+                      return (
+                        <Gate
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          innerRef={provided.innerRef}
+                          type="s"
+                          options={this.props.options}
+                        />
+                      );
+                    }}
+                  </Draggable>
+                </span>
               </div>
             );
           }}
