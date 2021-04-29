@@ -52,6 +52,15 @@ class Sidebar extends Component {
           value={this.props.options.randomSeed}
           onChange={(e) => this.props.onSetOption("setSeed", e)}
         ></input>
+        <h1>Source Code:</h1>
+        <hr />
+        <br />
+        Source code is available on{" "}
+        <a href="https://github.com/nrankin18/quantum" target="_blank">
+          GitHub
+        </a>
+        <br />
+        <div className="copyright">Copyright © 2021 Nathan Rankin</div>
       </div>
     );
   }

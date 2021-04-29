@@ -312,3 +312,9 @@ body {
 .button {
   margin: 20px;
 }
+
+.copyright {
+  text-align: center;
+  position: fixed;
+  bottom: 15px;
+}

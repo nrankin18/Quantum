@@ -235,9 +235,9 @@ class Measure extends Component {
       qubitOutput.push(
         <div className="output">
           <strong key={i}>
-            q<sub>{i}</sub>: |
+            q<sub>{i}</sub>:
           </strong>
-          <span>{(output + "").charAt(i)}</span>⟩
+          <span>{(output + "").charAt(i)}</span>
           <br />
         </div>
       );
