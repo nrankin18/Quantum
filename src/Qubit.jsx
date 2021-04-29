@@ -24,6 +24,7 @@ class Qubit extends Component {
             gate === "cnotDown" ||
             gate === "t" ||
             gate === "s" ||
+            gate === "z" ||
             gate === "trig" ||
             gate === "connect"
           ) {

@@ -168,6 +168,11 @@ body {
   font-size: 18px;
 }
 
+.gate.z {
+  background-color: lightgray;
+  font-size: 18px;
+}
+
 .gate.measure {
   background-color: lightgoldenrodyellow;
   font-size: 18px;
