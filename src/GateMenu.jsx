@@ -4,6 +4,7 @@ import { v4 as uuid } from "uuid";
 import "./style.css";
 import Gate from "./Gate";
 
+// This component is the menu to drag new gates from
 class GateMenu extends Component {
   render() {
     return (
@@ -12,10 +13,7 @@ class GateMenu extends Component {
           {(provided, snapshot) => {
             return (
               <div {...provided.droppableProps} ref={provided.innerRef}>
-                <span
-                  className="
-                      gate-wrapper"
-                >
+                <span className="gate-wrapper">
                   <Draggable key={1} draggableId={"cnot"} index={0}>
                     {(provided) => {
                       return (
@@ -30,10 +28,7 @@ class GateMenu extends Component {
                     }}
                   </Draggable>
                 </span>
-                <span
-                  className="
-                      gate-wrapper"
-                >
+                <span className="gate-wrapper">
                   <Draggable key={2} draggableId={"h"} index={0}>
                     {(provided) => {
                       return (
@@ -48,10 +43,7 @@ class GateMenu extends Component {
                     }}
                   </Draggable>
                 </span>
-                <span
-                  className="
-                      gate-wrapper"
-                >
+                <span className="gate-wrapper">
                   <Draggable key={3} draggableId={"t"} index={0}>
                     {(provided) => {
                       return (

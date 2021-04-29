@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./style.css";
 import Switch from "react-switch";
 
+// Sidebar with instructions and options
 class Sidebar extends Component {
   render() {
     return (
@@ -56,7 +57,11 @@ class Sidebar extends Component {
         <hr />
         <br />
         Source code is available on{" "}
-        <a href="https://github.com/nrankin18/quantum" target="_blank">
+        <a
+          href="https://github.com/nrankin18/quantum"
+          target="_blank"
+          rel="noreferrer"
+        >
           GitHub
         </a>
         <br />

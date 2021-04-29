@@ -1,11 +1,101 @@
 import React, { Component } from "react";
-import Circuit from "./Circuit";
 import Toolbar from "./Toolbar";
 import Sidebar from "./Sidebar";
 import GateMenu from "./GateMenu";
-import { DragDropContext } from "react-beautiful-dnd";
+import Circuit from "./Circuit";
 import Measure from "./Measure";
+import { DragDropContext } from "react-beautiful-dnd";
 
+const defaultCircuit = [
+  [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    "measure",
+  ],
+  [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    "measure",
+  ],
+  [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    "measure",
+  ],
+];
+
+const MAX_QUBITS = 10;
+
+// This is the simulator's main component responsible for housing the other components and maintaining the general state of the system including options and circuit design
 class App extends Component {
   constructor(props) {
     super(props);
@@ -17,96 +107,13 @@ class App extends Component {
         randomSeed: "2021",
       },
 
-      circuit: [
-        [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          "measure",
-        ],
-        [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          "measure",
-        ],
-        [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          "measure",
-        ],
-      ],
+      circuit: JSON.parse(JSON.stringify(defaultCircuit)),
     };
   }
 
+  // Handles the release of a gate onto a qubit line
   onDragEnd(result) {
+    // Dropped onto a valid gate drop location
     if (
       result.destination &&
       result.destination.droppableId.charAt(0) === "q"
@@ -114,6 +121,8 @@ class App extends Component {
       let tmpCircuit = this.state.circuit;
       const qubit = parseInt(result.destination.droppableId.charAt(1));
       const col = parseInt(result.destination.droppableId.substring(3));
+
+      // Ensure only one CNOT per column
       if (result.draggableId === "cnot") {
         for (var i = 0; i < tmpCircuit.length; i++) {
           if (
@@ -129,6 +138,7 @@ class App extends Component {
       }
       tmpCircuit[qubit][col] = result.draggableId;
 
+      // Display trigger option spots above and below CNOT
       if (result.draggableId === "cnot") {
         for (i = qubit + 1; i < tmpCircuit.length; i++) {
           if (tmpCircuit[i][col] !== null) {
@@ -149,6 +159,7 @@ class App extends Component {
     }
   }
 
+  // Callback to handle updating options
   onSetOption(option, state) {
     switch (option) {
       case "showGateDrop":
@@ -189,9 +200,11 @@ class App extends Component {
     }
   }
 
+  // Callback when selecting trigger point
   onSelectTrigger(qubit, index) {
     let tmpCircuit = this.state.circuit;
     let connecting = false;
+    // Set spaces between CNOT and trigger to connecting rod
     for (var i = 0; i < tmpCircuit.length; i++) {
       if (i === qubit) {
         connecting = !connecting;
@@ -208,9 +221,11 @@ class App extends Component {
     this.setState({ circuit: tmpCircuit });
   }
 
+  // Callback for deleting a gate
   onDeleteGate(qubit, index, isCNOT) {
     let tmpCircuit = this.state.circuit;
     tmpCircuit[qubit][index] = null;
+    // Remove triggers, connections, and trigger option points if CNOT deleted
     if (isCNOT) {
       for (var i = 0; i < tmpCircuit.length; i++) {
         if (
@@ -221,104 +236,20 @@ class App extends Component {
           tmpCircuit[i][index] = null;
       }
     }
-
     this.setState({ circuit: tmpCircuit });
   }
 
-  onClearCircuit() {
+  // Callback for resetting circuit
+  onResetCircuit() {
     this.setState({
-      circuit: [
-        [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          "measure",
-        ],
-        [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          "measure",
-        ],
-        [
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          null,
-          "measure",
-        ],
-      ],
+      circuit: JSON.parse(JSON.stringify(defaultCircuit)),
     });
   }
 
+  // Callback for adding qubit line
   onAddQubit() {
     var tmpCircuit = this.state.circuit;
-    if (tmpCircuit.length < 10) {
+    if (tmpCircuit.length < MAX_QUBITS) {
       tmpCircuit.push([
         null,
         null,
@@ -351,6 +282,7 @@ class App extends Component {
     this.setState({ circuit: tmpCircuit });
   }
 
+  // Callback for removing last qubit line
   onRemoveQubit() {
     var tmpCircuit = this.state.circuit;
     if (tmpCircuit.length > 1) {
@@ -381,13 +313,13 @@ class App extends Component {
                 circuit={this.state.circuit}
                 onSelectTrigger={this.onSelectTrigger.bind(this)}
                 onDeleteGate={this.onDeleteGate.bind(this)}
-                onClearCircuit={this.onClearCircuit.bind(this)}
+                onResetCircuit={this.onResetCircuit.bind(this)}
                 onAddQubit={this.onAddQubit.bind(this)}
                 onRemoveQubit={this.onRemoveQubit.bind(this)}
               />
               <hr />
               <Measure
-                circuit={[].concat(this.state.circuit)}
+                circuit={JSON.parse(JSON.stringify(this.state.circuit))}
                 options={this.state.options}
               />
             </div>

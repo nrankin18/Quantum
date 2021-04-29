@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Qubit from "./Qubit";
 import "./style.css";
 
+// This componenet manages the variable qubit lines
 class Circuit extends Component {
   render() {
     return (
@@ -26,7 +27,7 @@ class Circuit extends Component {
         <button className="button" onClick={() => this.props.onRemoveQubit()}>
           Remove qubit
         </button>
-        <button className="button" onClick={() => this.props.onClearCircuit()}>
+        <button className="button" onClick={() => this.props.onResetCircuit()}>
           Reset circuit
         </button>{" "}
       </>

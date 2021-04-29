@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./style.css";
 import Clock from "react-live-clock";
 
+// Top toolbar
 class Toolbar extends Component {
   render() {
     return (

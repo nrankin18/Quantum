@@ -5,6 +5,7 @@ import "katex/dist/katex.min.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTachometerAlt } from "@fortawesome/free-solid-svg-icons";
 
+// This is the gate component that is rendered on a qubit line
 class Gate extends Component {
   render() {
     switch (this.props.type) {

@@ -3,6 +3,7 @@ import * as math from "mathjs";
 import "./style.css";
 import seedrandom from "seedrandom";
 
+// This component calculates and displays the output of the circuit
 class Measure extends Component {
   constructor(props) {
     super(props);
@@ -25,10 +26,12 @@ class Measure extends Component {
     return math.evaluate("e^((i*pi)/4)*(" + a + ")");
   }
 
+  // Swaps a and b
   swap(a, b) {
     return { a: b, b: a };
   }
 
+  // Function called when H gate encountered
   evalHGate(j, stateVector) {
     const N = this.props.circuit.length;
     for (var k = 0; k < Math.pow(2, j); k++) {
@@ -46,6 +49,7 @@ class Measure extends Component {
     return stateVector;
   }
 
+  // Function called when T gate encountered
   evalTGate(j, tmpStateVector) {
     const N = this.props.circuit.length;
     for (var k = 0; k < Math.pow(2, j); k++) {
@@ -58,7 +62,8 @@ class Measure extends Component {
     return tmpStateVector;
   }
 
-  // m = trigger, n = not
+  // Function called when CNOT gate or trigger encountered
+  // m = trigger, n = NOT
   evalCNOTGate(m, n, tmpStateVector) {
     const N = this.props.circuit.length;
     const u = Math.min(m, n);
@@ -89,8 +94,10 @@ class Measure extends Component {
     return tmpStateVector;
   }
 
+  // Called when circuit is updated to calculate new output (ignores unconnected CNOT gates)
   evaluateCircuit() {
-    console.log(this.props.circuit);
+    console.log("Calculating result of following circuit:", this.props.circuit);
+
     // Initialize state vector
     const N = this.props.circuit.length;
     var tmpStateVector = [];
@@ -102,7 +109,7 @@ class Measure extends Component {
     // Column-major traversal
     // i = gate number, j = qubit number
     for (i = 0; i < this.props.circuit[0].length; i++) {
-      let foundCNOT = false;
+      let foundCNOT = false; // Marks if CNOT has already been evaluated (looks for both trigger and CNOT)
       var k;
       for (var j = 0; j < this.props.circuit.length; j++) {
         switch (this.props.circuit[j][i]) {
@@ -115,6 +122,7 @@ class Measure extends Component {
           case "trig":
             if (foundCNOT) break;
             foundCNOT = true;
+            // Search for NOT connection
             for (k = j + 1; k < this.props.circuit.length; k++) {
               if (
                 this.props.circuit[k][i] === "cnotUp" ||
@@ -125,19 +133,11 @@ class Measure extends Component {
               }
             }
             break;
+          case "cnotDown":
           case "cnotUp":
             if (foundCNOT) break;
             foundCNOT = true;
-            for (k = j + 1; k < this.props.circuit.length; k++) {
-              if (this.props.circuit[k][i] === "trig") {
-                tmpStateVector = this.evalCNOTGate(k, j, tmpStateVector);
-                break;
-              }
-            }
-            break;
-          case "cnotDown":
-            if (foundCNOT) break;
-            foundCNOT = true;
+            // Search for trigger
             for (k = j + 1; k < this.props.circuit.length; k++) {
               if (this.props.circuit[k][i] === "trig") {
                 tmpStateVector = this.evalCNOTGate(k, j, tmpStateVector);
@@ -150,16 +150,18 @@ class Measure extends Component {
         }
       }
     }
-    console.log(tmpStateVector);
+    console.log("Resulting calculation:", tmpStateVector);
     this.setState({
       stateVector: tmpStateVector,
     });
   }
 
+  // Evaluate circuit on first load
   componentDidMount() {
     this.evaluateCircuit();
   }
 
+  // Evaluate circuit only when circuit updates
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.circuit !== this.props.circuit) {
       this.evaluateCircuit();
@@ -167,6 +169,7 @@ class Measure extends Component {
   }
 
   render() {
+    // Generate list of qubit names
     const qubits = [];
     qubits.push(
       <strong key={0}>
@@ -180,6 +183,8 @@ class Measure extends Component {
         </strong>
       );
     }
+
+    // Generate statevector
     const states = [];
     for (i = 0; i < Math.pow(2, this.props.circuit.length); i++) {
       states.push(
@@ -198,15 +203,16 @@ class Measure extends Component {
       );
     }
 
+    // Generate probabilities
     const probabilities = [];
-    const outcomes = [];
+    const outcomes = []; // List of 100 states distributed by probability of occuring
     for (i = 0; i < Math.pow(2, this.props.circuit.length); i++) {
       var probability;
       if (this.state.stateVector[i] !== undefined) {
         const re = Math.pow(math.re(this.state.stateVector[i]), 2);
         const im = Math.pow(math.im(this.state.stateVector[i]), 2);
         probability = math.round(re + im, 3);
-
+        // Populate outcome array
         const probabilityCount = probability * 100;
         for (var j = 0; j < probabilityCount; j++) {
           outcomes.push(
@@ -227,6 +233,8 @@ class Measure extends Component {
         </div>
       );
     }
+
+    // Determine random outcome
     var seed = seedrandom(this.props.options.randomSeed);
     const output = outcomes[Math.floor(seed() * outcomes.length)];
 

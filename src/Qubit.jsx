@@ -4,6 +4,7 @@ import { Droppable } from "react-beautiful-dnd";
 import Gate from "./Gate";
 import { v4 as uuid } from "uuid";
 
+// This component is an individual qubit register
 class Qubit extends Component {
   render() {
     return (
@@ -16,59 +17,19 @@ class Qubit extends Component {
         </span>
         <span style={{ marginLeft: "10px", marginRight: "20px" }}>|0⟩</span>
         {this.props.gates.map((gate, index) => {
-          if (gate === "h") {
+          if (
+            gate === "h" ||
+            gate === "cnot" ||
+            gate === "cnotUp" ||
+            gate === "cnotDown" ||
+            gate === "t" ||
+            gate === "trig" ||
+            gate === "connect"
+          ) {
             return (
               <span className="gate-wrapper" key={uuid()}>
                 <Gate
-                  type="h"
-                  qubit={this.props.number}
-                  index={index}
-                  options={this.props.options}
-                  onDelete={this.props.onDeleteGate}
-                />
-              </span>
-            );
-          } else if (gate === "cnot") {
-            return (
-              <span className="gate-wrapper" key={uuid()}>
-                <Gate
-                  type="cnot"
-                  qubit={this.props.number}
-                  index={index}
-                  options={this.props.options}
-                  onDelete={this.props.onDeleteGate}
-                />
-              </span>
-            );
-          } else if (gate === "cnotUp") {
-            return (
-              <span className="gate-wrapper" key={uuid()}>
-                <Gate
-                  type="cnotUp"
-                  qubit={this.props.number}
-                  index={index}
-                  options={this.props.options}
-                  onDelete={this.props.onDeleteGate}
-                />
-              </span>
-            );
-          } else if (gate === "cnotDown") {
-            return (
-              <span className="gate-wrapper" key={uuid()}>
-                <Gate
-                  type="cnotDown"
-                  qubit={this.props.number}
-                  index={index}
-                  options={this.props.options}
-                  onDelete={this.props.onDeleteGate}
-                />
-              </span>
-            );
-          } else if (gate === "t") {
-            return (
-              <span className="gate-wrapper" key={uuid()}>
-                <Gate
-                  type="t"
+                  type={gate}
                   qubit={this.props.number}
                   index={index}
                   options={this.props.options}
@@ -84,26 +45,6 @@ class Qubit extends Component {
                   qubit={this.props.number}
                   index={index}
                   options={this.props.options}
-                />
-              </span>
-            );
-          } else if (gate === "trig") {
-            return (
-              <span className="gate-wrapper" key={uuid()}>
-                <Gate
-                  type="trig"
-                  options={this.props.options}
-                  onDelete={this.props.onDeleteGate}
-                />
-              </span>
-            );
-          } else if (gate === "connect") {
-            return (
-              <span className="gate-wrapper" key={uuid()}>
-                <Gate
-                  type="connect"
-                  options={this.props.options}
-                  onDelete={this.props.onDeleteGate}
                 />
               </span>
             );
