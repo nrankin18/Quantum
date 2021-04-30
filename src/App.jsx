@@ -190,15 +190,17 @@ class App extends Component {
   onSelectTrigger(qubit, index) {
     let tmpCircuit = this.state.circuit;
     let gateIndex;
-    // Search up for gate
+    // Search down for gate
     for (var i = qubit; i < tmpCircuit.length; i++) {
+      if (tmpCircuit[i][index] !== "trigopt" && tmpCircuit[i][index] !== "cnot")
+        break;
       if (tmpCircuit[i][index] === "cnot") {
         gateIndex = i;
         break;
       }
     }
-    // Search down for gate
     if (!gateIndex) {
+      // Search down for gate
       for (i = qubit; i >= 0; i--) {
         if (tmpCircuit[i][index] === "cnot") {
           gateIndex = i;
@@ -208,19 +210,29 @@ class App extends Component {
           tmpCircuit[i][index] = "connect";
         }
       }
+      while (--i >= 0 && tmpCircuit[i][index] === "trigopt") {
+        tmpCircuit[i][index] = null;
+      }
+      i = qubit;
+      while (++i < tmpCircuit.length && tmpCircuit[i][index] === "trigopt") {
+        tmpCircuit[i][index] = null;
+      }
     } else {
-      // Found gate above
+      // Found gate below
       tmpCircuit[gateIndex][index] = "cnot-up";
       for (i = qubit; i < gateIndex; i++) {
         tmpCircuit[i][index] = "connect";
       }
-      i++;
-      while ()// TODO: remove flashing trigopts
+      // Clear trig opts
+      while (++i < tmpCircuit.length && tmpCircuit[i][index] === "trigopt") {
+        tmpCircuit[i][index] = null;
+      }
       i = qubit;
+      while (--i >= 0 && tmpCircuit[i][index] === "trigopt") {
+        tmpCircuit[i][index] = null;
+      }
     }
     tmpCircuit[qubit][index] = "trig";
-    i = qubit + 1;
-    while (tmpCircuit[i][index] )
     this.setState({ circuit: tmpCircuit });
   }
 
