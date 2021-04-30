@@ -14,22 +14,7 @@ class GateMenu extends Component {
             return (
               <div {...provided.droppableProps} ref={provided.innerRef}>
                 <span className="gate-wrapper">
-                  <Draggable key={1} draggableId={"cnot"} index={0}>
-                    {(provided) => {
-                      return (
-                        <Gate
-                          {...provided.draggableProps}
-                          {...provided.dragHandleProps}
-                          innerRef={provided.innerRef}
-                          type="cnot"
-                          options={this.props.options}
-                        />
-                      );
-                    }}
-                  </Draggable>
-                </span>
-                <span className="gate-wrapper">
-                  <Draggable key={2} draggableId={"h"} index={0}>
+                  <Draggable key={1} draggableId={"h"} index={0}>
                     {(provided) => {
                       return (
                         <Gate
@@ -44,14 +29,14 @@ class GateMenu extends Component {
                   </Draggable>
                 </span>
                 <span className="gate-wrapper">
-                  <Draggable key={3} draggableId={"t"} index={0}>
+                  <Draggable key={2} draggableId={"x"} index={0}>
                     {(provided) => {
                       return (
                         <Gate
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           innerRef={provided.innerRef}
-                          type="t"
+                          type="x"
                           options={this.props.options}
                         />
                       );
@@ -59,14 +44,29 @@ class GateMenu extends Component {
                   </Draggable>
                 </span>
                 <span className="gate-wrapper">
-                  <Draggable key={4} draggableId={"s"} index={0}>
+                  <Draggable key={3} draggableId={"cnot"} index={0}>
                     {(provided) => {
                       return (
                         <Gate
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
                           innerRef={provided.innerRef}
-                          type="s"
+                          type="cnot"
+                          options={this.props.options}
+                        />
+                      );
+                    }}
+                  </Draggable>
+                </span>
+                <span className="gate-wrapper">
+                  <Draggable key={4} draggableId={"y"} index={0}>
+                    {(provided) => {
+                      return (
+                        <Gate
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          innerRef={provided.innerRef}
+                          type="y"
                           options={this.props.options}
                         />
                       );
@@ -82,6 +82,36 @@ class GateMenu extends Component {
                           {...provided.dragHandleProps}
                           innerRef={provided.innerRef}
                           type="z"
+                          options={this.props.options}
+                        />
+                      );
+                    }}
+                  </Draggable>
+                </span>
+                <span className="gate-wrapper">
+                  <Draggable key={6} draggableId={"t"} index={0}>
+                    {(provided) => {
+                      return (
+                        <Gate
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          innerRef={provided.innerRef}
+                          type="t"
+                          options={this.props.options}
+                        />
+                      );
+                    }}
+                  </Draggable>
+                </span>
+                <span className="gate-wrapper">
+                  <Draggable key={7} draggableId={"s"} index={0}>
+                    {(provided) => {
+                      return (
+                        <Gate
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          innerRef={provided.innerRef}
+                          type="s"
                           options={this.props.options}
                         />
                       );

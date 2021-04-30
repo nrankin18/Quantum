@@ -196,6 +196,56 @@ class Gate extends Component {
             </span>
           </div>
         );
+      case "x":
+        return (
+          <div
+            className={
+              this.props.onDelete
+                ? "gate x noselect deletable"
+                : "gate x noselect"
+            }
+            {...this.props}
+            ref={this.props.innerRef}
+            onDoubleClick={(e) => {
+              if (this.props.onDelete)
+                this.props.onDelete(this.props.qubit, this.props.index, false);
+            }}
+          >
+            X
+            <span
+              className={
+                this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
+              }
+            >
+              <BlockMath math="\begin{bmatrix}0&1\\ 1&0\end{bmatrix}" />
+            </span>
+          </div>
+        );
+      case "y":
+        return (
+          <div
+            className={
+              this.props.onDelete
+                ? "gate y noselect deletable"
+                : "gate y noselect"
+            }
+            {...this.props}
+            ref={this.props.innerRef}
+            onDoubleClick={(e) => {
+              if (this.props.onDelete)
+                this.props.onDelete(this.props.qubit, this.props.index, false);
+            }}
+          >
+            Y
+            <span
+              className={
+                this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
+              }
+            >
+              <BlockMath math="\begin{bmatrix}0&-i\\ i&0\end{bmatrix}" />
+            </span>
+          </div>
+        );
       case "trigopt":
         return (
           <div

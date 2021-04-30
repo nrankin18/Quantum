@@ -31,7 +31,7 @@ class Measure extends Component {
     return math.evaluate("i*(" + a + ")");
   }
 
-  // a = i*a
+  // a = -1*a
   phaseTransitionZ(a) {
     return math.evaluate("-1*(" + a + ")");
   }
@@ -93,6 +93,42 @@ class Measure extends Component {
         const index = l + k * Math.pow(2, N - j) + Math.pow(2, N - j - 1);
         const change = this.phaseTransitionZ(tmpStateVector[index]);
         tmpStateVector[index] = change;
+      }
+    }
+    return tmpStateVector;
+  }
+
+  // Function called when X gate encountered
+  evalXGate(j, tmpStateVector) {
+    const N = this.props.circuit.length;
+    for (var k = 0; k < Math.pow(2, j); k++) {
+      for (var l = 0; l < Math.pow(2, N - j - 1); l++) {
+        const index0 = l + k * Math.pow(2, N - j);
+        const index1 = l + k * Math.pow(2, N - j) + Math.pow(2, N - j - 1);
+        const change = this.swap(
+          tmpStateVector[index0],
+          tmpStateVector[index1]
+        );
+        tmpStateVector[index0] = math.evaluate("i*(" + change.a + ")");
+        tmpStateVector[index1] = math.evaluate("-i*(" + change.b + ")");
+      }
+    }
+    return tmpStateVector;
+  }
+
+  // Function called when Y gate encountered
+  evalYGate(j, tmpStateVector) {
+    const N = this.props.circuit.length;
+    for (var k = 0; k < Math.pow(2, j); k++) {
+      for (var l = 0; l < Math.pow(2, N - j - 1); l++) {
+        const index0 = l + k * Math.pow(2, N - j);
+        const index1 = l + k * Math.pow(2, N - j) + Math.pow(2, N - j - 1);
+        const change = this.swap(
+          tmpStateVector[index0],
+          tmpStateVector[index1]
+        );
+        tmpStateVector[index0] = change.a;
+        tmpStateVector[index1] = change.b;
       }
     }
     return tmpStateVector;
@@ -160,6 +196,12 @@ class Measure extends Component {
             break;
           case "z":
             tmpStateVector = this.evalZGate(j, tmpStateVector);
+            break;
+          case "x":
+            tmpStateVector = this.evalXGate(j, tmpStateVector);
+            break;
+          case "y":
+            tmpStateVector = this.evalYGate(j, tmpStateVector);
             break;
           case "trig":
             if (foundCNOT) break;

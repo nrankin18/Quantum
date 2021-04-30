@@ -119,12 +119,6 @@ body {
   display: inline-block;
 }
 
-.gate.cnot {
-  background-color: lightcoral;
-  font-size: 10px;
-  z-index: 10;
-}
-
 .deletable:hover {
   cursor: crosshair;
 }
@@ -154,27 +148,43 @@ body {
 }
 
 .gate.h {
-  background-color: lightblue;
+  background-color: lightcoral;
   font-size: 18px;
 }
 
-.gate.t {
+.gate.x {
+  background-color: lightsalmon;
+  font-size: 18px;
+}
+
+.gate.cnot {
+  background-color: lightsalmon;
+  font-size: 10px;
+  z-index: 10;
+}
+
+.gate.y {
   background-color: lightgreen;
   font-size: 18px;
 }
 
-.gate.s {
-  background-color: lightpink;
+.gate.z {
+  background-color: lightgreen;
   font-size: 18px;
 }
 
-.gate.z {
-  background-color: lightgray;
+.gate.t {
+  background-color: lightblue;
+  font-size: 18px;
+}
+
+.gate.s {
+  background-color: lightblue;
   font-size: 18px;
 }
 
 .gate.measure {
-  background-color: lightgoldenrodyellow;
+  background-color: lightgray;
   font-size: 18px;
   display: inline-block;
 }
