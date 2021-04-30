@@ -130,14 +130,31 @@ class App extends Component {
           if (tmpCircuit[i][col] !== null) {
             break;
           } else {
-            tmpCircuit[i][col] = "trigopt";
+            tmpCircuit[i][col] = "trigopt-cnot";
           }
         }
         for (i = qubit - 1; i >= 0; i--) {
           if (tmpCircuit[i][col] !== null) {
             break;
           } else {
-            tmpCircuit[i][col] = "trigopt";
+            tmpCircuit[i][col] = "trigopt-cnot";
+          }
+        }
+      }
+      // Display trigger option spots above and below SWAP
+      if (result.draggableId === "swap") {
+        for (i = qubit + 1; i < tmpCircuit.length; i++) {
+          if (tmpCircuit[i][col] !== null) {
+            break;
+          } else {
+            tmpCircuit[i][col] = "trigopt-swap";
+          }
+        }
+        for (i = qubit - 1; i >= 0; i--) {
+          if (tmpCircuit[i][col] !== null) {
+            break;
+          } else {
+            tmpCircuit[i][col] = "trigopt-swap";
           }
         }
       }
@@ -187,14 +204,18 @@ class App extends Component {
   }
 
   // Callback when selecting trigger point
-  onSelectTrigger(qubit, index) {
+  onSelectTrigger(qubit, index, gate) {
     let tmpCircuit = this.state.circuit;
     let gateIndex;
+
     // Search down for gate
     for (var i = qubit; i < tmpCircuit.length; i++) {
-      if (tmpCircuit[i][index] !== "trigopt" && tmpCircuit[i][index] !== "cnot")
+      if (
+        tmpCircuit[i][index] !== "trigopt-" + gate &&
+        tmpCircuit[i][index] !== gate
+      )
         break;
-      if (tmpCircuit[i][index] === "cnot") {
+      if (tmpCircuit[i][index] === gate) {
         gateIndex = i;
         break;
       }
@@ -202,37 +223,49 @@ class App extends Component {
     if (!gateIndex) {
       // Search down for gate
       for (i = qubit; i >= 0; i--) {
-        if (tmpCircuit[i][index] === "cnot") {
+        if (tmpCircuit[i][index] === gate) {
           gateIndex = i;
-          tmpCircuit[gateIndex][index] = "cnot-down";
+          tmpCircuit[gateIndex][index] = gate + "-down";
+          if (gate === "swap") {
+            tmpCircuit[qubit][index] = "swap-up";
+          }
           break;
         } else {
           tmpCircuit[i][index] = "connect";
         }
       }
-      while (--i >= 0 && tmpCircuit[i][index] === "trigopt") {
+      while (--i >= 0 && tmpCircuit[i][index] === "trigopt-" + gate) {
         tmpCircuit[i][index] = null;
       }
       i = qubit;
-      while (++i < tmpCircuit.length && tmpCircuit[i][index] === "trigopt") {
+      while (
+        ++i < tmpCircuit.length &&
+        tmpCircuit[i][index] === "trigopt-" + gate
+      ) {
         tmpCircuit[i][index] = null;
       }
     } else {
       // Found gate below
-      tmpCircuit[gateIndex][index] = "cnot-up";
+      tmpCircuit[gateIndex][index] = gate + "-up";
       for (i = qubit; i < gateIndex; i++) {
         tmpCircuit[i][index] = "connect";
       }
+      if (gate === "swap") tmpCircuit[qubit][index] = "swap-down";
+
       // Clear trig opts
-      while (++i < tmpCircuit.length && tmpCircuit[i][index] === "trigopt") {
+      while (
+        ++i < tmpCircuit.length &&
+        tmpCircuit[i][index] === "trigopt-" + gate
+      ) {
         tmpCircuit[i][index] = null;
       }
       i = qubit;
-      while (--i >= 0 && tmpCircuit[i][index] === "trigopt") {
+      while (--i >= 0 && tmpCircuit[i][index] === "trigopt-" + gate) {
         tmpCircuit[i][index] = null;
       }
     }
-    tmpCircuit[qubit][index] = "trig";
+    if (gate === "cnot") tmpCircuit[qubit][index] = "trig";
+
     this.setState({ circuit: tmpCircuit });
   }
 
@@ -242,18 +275,22 @@ class App extends Component {
     tmpCircuit[qubit][index] = null;
 
     switch (gate) {
+      case "swap":
       case "cnot":
         var i = qubit;
-        while (++i < tmpCircuit.length && tmpCircuit[i][index] === "trigopt") {
+        while (
+          ++i < tmpCircuit.length &&
+          tmpCircuit[i][index] === "trigopt-" + gate
+        ) {
           tmpCircuit[i][index] = null;
         }
         i = qubit;
-        while (--i >= 0 && tmpCircuit[i][index] === "trigopt") {
+        while (--i >= 0 && tmpCircuit[i][index] === "trigopt-" + gate) {
           tmpCircuit[i][index] = null;
         }
         break;
       case "cnot-up":
-        var i = qubit;
+        i = qubit;
         while (
           --i >= 0 &&
           (tmpCircuit[i][index] === "connect" ||
@@ -263,11 +300,31 @@ class App extends Component {
         }
         break;
       case "cnot-down":
-        var i = qubit;
+        i = qubit;
         while (
           ++i < tmpCircuit.length &&
           (tmpCircuit[i][index] === "connect" ||
             tmpCircuit[i][index] === "trig")
+        ) {
+          tmpCircuit[i][index] = null;
+        }
+        break;
+      case "swap-up":
+        i = qubit;
+        while (
+          --i >= 0 &&
+          (tmpCircuit[i][index] === "connect" ||
+            tmpCircuit[i][index] === "swap-down")
+        ) {
+          tmpCircuit[i][index] = null;
+        }
+        break;
+      case "swap-down":
+        i = qubit;
+        while (
+          ++i < tmpCircuit.length &&
+          (tmpCircuit[i][index] === "connect" ||
+            tmpCircuit[i][index] === "swap-up")
         ) {
           tmpCircuit[i][index] = null;
         }

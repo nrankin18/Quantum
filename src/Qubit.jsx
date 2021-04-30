@@ -22,6 +22,9 @@ class Qubit extends Component {
             gate === "cnot" ||
             gate === "cnot-up" ||
             gate === "cnot-down" ||
+            gate === "swap" ||
+            gate === "swap-up" ||
+            gate === "swap-down" ||
             gate === "t" ||
             gate === "s" ||
             gate === "z" ||
@@ -52,11 +55,11 @@ class Qubit extends Component {
                 />
               </span>
             );
-          } else if (gate === "trigopt") {
+          } else if (gate === "trigopt-cnot" || gate === "trigopt-swap") {
             return (
               <span className="gate-wrapper" key={uuid()}>
                 <Gate
-                  type="trigopt"
+                  type={gate}
                   qubit={this.props.number}
                   index={index}
                   options={this.props.options}

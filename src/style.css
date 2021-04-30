@@ -123,28 +123,8 @@ body {
   cursor: crosshair;
 }
 
-.cnot-up {
-  width: 2px;
-  height: 45px;
-  background-color: black;
-  position: absolute;
-  top: -45px;
-  right: 11.5px;
-  z-index: -1000;
-}
-
 .gate.x {
   font-size: 18px !important;
-}
-
-.cnot-down {
-  width: 2px;
-  height: 45px;
-  top: 25px;
-  background-color: black;
-  position: absolute;
-  right: 11.5px;
-  z-index: -1000;
 }
 
 .gate.h {
@@ -160,7 +140,50 @@ body {
 .gate.cnot {
   background-color: lightsalmon;
   font-size: 10px;
-  z-index: 10;
+  z-index: 10 !important;
+}
+.cnot-up {
+  width: 2px;
+  height: 45px;
+  background-color: black;
+  position: absolute;
+  top: -45px;
+  right: 11.5px;
+  z-index: -1000;
+}
+.cnot-down {
+  width: 2px;
+  height: 45px;
+  top: 25px;
+  background-color: black;
+  position: absolute;
+  right: 11.5px;
+  z-index: -1000;
+}
+
+.gate.swap {
+  background-color: lightsalmon;
+  font-size: 10px;
+  z-index: 10 !important;
+}
+
+.swap-up {
+  width: 2px;
+  height: 28px;
+  background-color: black;
+  position: absolute;
+  top: -28px;
+  right: 11.5px;
+  z-index: -1000;
+}
+.swap-down {
+  width: 2px;
+  height: 45px;
+  top: 25px;
+  background-color: black;
+  position: absolute;
+  right: 11.5px;
+  z-index: -1000;
 }
 
 .gate.y {

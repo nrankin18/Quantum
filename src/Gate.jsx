@@ -48,6 +48,35 @@ class Gate extends Component {
             </span>
           </div>
         );
+      case "swap":
+        return (
+          <div
+            className={
+              this.props.onDelete
+                ? "gate swap noselect deletable"
+                : "gate swap noselect"
+            }
+            {...this.props}
+            ref={this.props.innerRef}
+            onDoubleClick={(e) => {
+              if (this.props.onDelete)
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
+            }}
+          >
+            SWAP
+            <span
+              className={
+                this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
+              }
+            >
+              <BlockMath math="\begin{bmatrix}1&0&0&0\\ 0&0&1&0\\ 0&1&0&0\\ 0&0&0&1\end{bmatrix}" />
+            </span>
+          </div>
+        );
       case "cnot-up":
       case "cnot-down":
         return (
@@ -56,6 +85,37 @@ class Gate extends Component {
               this.props.onDelete
                 ? "gate cnot x noselect deletable"
                 : "gate cnot x noselect"
+            }
+            {...this.props}
+            ref={this.props.innerRef}
+            onDoubleClick={(e) => {
+              if (this.props.onDelete)
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
+            }}
+          >
+            X
+            <span
+              className={
+                this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
+              }
+            >
+              <BlockMath math="\begin{bmatrix}0&1\\ 1&0\end{bmatrix}" />
+            </span>
+            <span className={this.props.type} />
+          </div>
+        );
+      case "swap-up":
+      case "swap-down":
+        return (
+          <div
+            className={
+              this.props.onDelete
+                ? "gate swap x noselect deletable"
+                : "gate swap x noselect"
             }
             {...this.props}
             ref={this.props.innerRef}
@@ -253,7 +313,7 @@ class Gate extends Component {
             </span>
           </div>
         );
-      case "trigopt":
+      case "trigopt-cnot":
         return (
           <div
             className="gate trigopt noselect"
@@ -262,7 +322,29 @@ class Gate extends Component {
           >
             <div
               onClick={(e) =>
-                this.props.onSelectTrigger(this.props.qubit, this.props.index)
+                this.props.onSelectTrigger(
+                  this.props.qubit,
+                  this.props.index,
+                  "cnot"
+                )
+              }
+            />
+          </div>
+        );
+      case "trigopt-swap":
+        return (
+          <div
+            className="gate trigopt noselect"
+            {...this.props}
+            ref={this.props.innerRef}
+          >
+            <div
+              onClick={(e) =>
+                this.props.onSelectTrigger(
+                  this.props.qubit,
+                  this.props.index,
+                  "swap"
+                )
               }
             />
           </div>
