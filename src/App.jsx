@@ -237,20 +237,45 @@ class App extends Component {
   }
 
   // Callback for deleting a gate
-  onDeleteGate(qubit, index, isMultiGate) {
+  onDeleteGate(qubit, index, gate) {
     let tmpCircuit = this.state.circuit;
     tmpCircuit[qubit][index] = null;
-    // Remove triggers, connections, and trigger option points if CNOT deleted
-    if (isMultiGate) {
-      for (var i = 0; i < tmpCircuit.length; i++) {
-        if (
-          tmpCircuit[i][index] === "trig" ||
-          tmpCircuit[i][index] === "connect" ||
-          tmpCircuit[i][index] === "trigopt"
-        )
+
+    switch (gate) {
+      case "cnot":
+        var i = qubit;
+        while (++i < tmpCircuit.length && tmpCircuit[i][index] === "trigopt") {
           tmpCircuit[i][index] = null;
-      }
+        }
+        i = qubit;
+        while (--i >= 0 && tmpCircuit[i][index] === "trigopt") {
+          tmpCircuit[i][index] = null;
+        }
+        break;
+      case "cnot-up":
+        var i = qubit;
+        while (
+          --i >= 0 &&
+          (tmpCircuit[i][index] === "connect" ||
+            tmpCircuit[i][index] === "trig")
+        ) {
+          tmpCircuit[i][index] = null;
+        }
+        break;
+      case "cnot-down":
+        var i = qubit;
+        while (
+          ++i < tmpCircuit.length &&
+          (tmpCircuit[i][index] === "connect" ||
+            tmpCircuit[i][index] === "trig")
+        ) {
+          tmpCircuit[i][index] = null;
+        }
+        break;
+      default:
+        break;
     }
+
     this.setState({ circuit: tmpCircuit });
   }
 

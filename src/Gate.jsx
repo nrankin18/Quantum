@@ -31,7 +31,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, true);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             CNOT
@@ -57,7 +61,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, true);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             X
@@ -83,7 +91,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             H
@@ -108,7 +120,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             T
@@ -133,7 +149,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             S
@@ -158,7 +178,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             Z
@@ -183,7 +207,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             X
@@ -208,7 +236,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             Y
