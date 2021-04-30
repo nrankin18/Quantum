@@ -31,7 +31,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, true);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             CNOT
@@ -44,7 +48,8 @@ class Gate extends Component {
             </span>
           </div>
         );
-      case "cnotUp":
+      case "cnot-up":
+      case "cnot-down":
         return (
           <div
             className={
@@ -56,7 +61,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, true);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             X
@@ -67,33 +76,7 @@ class Gate extends Component {
             >
               <BlockMath math="\begin{bmatrix}0&1\\ 1&0\end{bmatrix}" />
             </span>
-            <span className="cnotUp" />
-          </div>
-        );
-      case "cnotDown":
-        return (
-          <div
-            className={
-              this.props.onDelete
-                ? "gate cnot x noselect deletable"
-                : "gate cnot x noselect"
-            }
-            {...this.props}
-            ref={this.props.innerRef}
-            onDoubleClick={(e) => {
-              if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, true);
-            }}
-          >
-            X
-            <span
-              className={
-                this.props.options.showGateMatrix ? "gate-tooltip" : "hidden"
-              }
-            >
-              <BlockMath math="\begin{bmatrix}0&1\\ 1&0\end{bmatrix}" />
-            </span>
-            <span className="cnotDown" />
+            <span className={this.props.type} />
           </div>
         );
       case "h":
@@ -108,7 +91,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             H
@@ -133,7 +120,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             T
@@ -158,7 +149,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             S
@@ -183,7 +178,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             Z
@@ -208,7 +207,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             X
@@ -233,7 +236,11 @@ class Gate extends Component {
             ref={this.props.innerRef}
             onDoubleClick={(e) => {
               if (this.props.onDelete)
-                this.props.onDelete(this.props.qubit, this.props.index, false);
+                this.props.onDelete(
+                  this.props.qubit,
+                  this.props.index,
+                  this.props.type
+                );
             }}
           >
             Y

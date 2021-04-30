@@ -122,25 +122,11 @@ class App extends Component {
       const qubit = parseInt(result.destination.droppableId.charAt(1));
       const col = parseInt(result.destination.droppableId.substring(3));
 
-      // Ensure only one CNOT per column
-      if (result.draggableId === "cnot") {
-        for (var i = 0; i < tmpCircuit.length; i++) {
-          if (
-            i !== qubit &&
-            (tmpCircuit[i][col] === "cnot" ||
-              tmpCircuit[i][col] === "cnotUp" ||
-              tmpCircuit[i][col] === "cnotDown")
-          ) {
-            alert("Error: Only one CNOT allowed per column");
-            return;
-          }
-        }
-      }
       tmpCircuit[qubit][col] = result.draggableId;
 
       // Display trigger option spots above and below CNOT
       if (result.draggableId === "cnot") {
-        for (i = qubit + 1; i < tmpCircuit.length; i++) {
+        for (var i = qubit + 1; i < tmpCircuit.length; i++) {
           if (tmpCircuit[i][col] !== null) {
             break;
           } else {
@@ -203,18 +189,47 @@ class App extends Component {
   // Callback when selecting trigger point
   onSelectTrigger(qubit, index) {
     let tmpCircuit = this.state.circuit;
-    let connecting = false;
-    // Set spaces between CNOT and trigger to connecting rod
-    for (var i = 0; i < tmpCircuit.length; i++) {
-      if (i === qubit) {
-        connecting = !connecting;
-      }
+    let gateIndex;
+    // Search down for gate
+    for (var i = qubit; i < tmpCircuit.length; i++) {
+      if (tmpCircuit[i][index] !== "trigopt" && tmpCircuit[i][index] !== "cnot")
+        break;
       if (tmpCircuit[i][index] === "cnot") {
-        tmpCircuit[i][index] = connecting ? "cnotUp" : "cnotDown";
-        connecting = !connecting;
-        continue;
-      } else if (tmpCircuit[i][index] === "trigopt") {
-        tmpCircuit[i][index] = connecting ? "connect" : null;
+        gateIndex = i;
+        break;
+      }
+    }
+    if (!gateIndex) {
+      // Search down for gate
+      for (i = qubit; i >= 0; i--) {
+        if (tmpCircuit[i][index] === "cnot") {
+          gateIndex = i;
+          tmpCircuit[gateIndex][index] = "cnot-down";
+          break;
+        } else {
+          tmpCircuit[i][index] = "connect";
+        }
+      }
+      while (--i >= 0 && tmpCircuit[i][index] === "trigopt") {
+        tmpCircuit[i][index] = null;
+      }
+      i = qubit;
+      while (++i < tmpCircuit.length && tmpCircuit[i][index] === "trigopt") {
+        tmpCircuit[i][index] = null;
+      }
+    } else {
+      // Found gate below
+      tmpCircuit[gateIndex][index] = "cnot-up";
+      for (i = qubit; i < gateIndex; i++) {
+        tmpCircuit[i][index] = "connect";
+      }
+      // Clear trig opts
+      while (++i < tmpCircuit.length && tmpCircuit[i][index] === "trigopt") {
+        tmpCircuit[i][index] = null;
+      }
+      i = qubit;
+      while (--i >= 0 && tmpCircuit[i][index] === "trigopt") {
+        tmpCircuit[i][index] = null;
       }
     }
     tmpCircuit[qubit][index] = "trig";
@@ -222,20 +237,45 @@ class App extends Component {
   }
 
   // Callback for deleting a gate
-  onDeleteGate(qubit, index, isCNOT) {
+  onDeleteGate(qubit, index, gate) {
     let tmpCircuit = this.state.circuit;
     tmpCircuit[qubit][index] = null;
-    // Remove triggers, connections, and trigger option points if CNOT deleted
-    if (isCNOT) {
-      for (var i = 0; i < tmpCircuit.length; i++) {
-        if (
-          tmpCircuit[i][index] === "trig" ||
-          tmpCircuit[i][index] === "connect" ||
-          tmpCircuit[i][index] === "trigopt"
-        )
+
+    switch (gate) {
+      case "cnot":
+        var i = qubit;
+        while (++i < tmpCircuit.length && tmpCircuit[i][index] === "trigopt") {
           tmpCircuit[i][index] = null;
-      }
+        }
+        i = qubit;
+        while (--i >= 0 && tmpCircuit[i][index] === "trigopt") {
+          tmpCircuit[i][index] = null;
+        }
+        break;
+      case "cnot-up":
+        var i = qubit;
+        while (
+          --i >= 0 &&
+          (tmpCircuit[i][index] === "connect" ||
+            tmpCircuit[i][index] === "trig")
+        ) {
+          tmpCircuit[i][index] = null;
+        }
+        break;
+      case "cnot-down":
+        var i = qubit;
+        while (
+          ++i < tmpCircuit.length &&
+          (tmpCircuit[i][index] === "connect" ||
+            tmpCircuit[i][index] === "trig")
+        ) {
+          tmpCircuit[i][index] = null;
+        }
+        break;
+      default:
+        break;
     }
+
     this.setState({ circuit: tmpCircuit });
   }
 

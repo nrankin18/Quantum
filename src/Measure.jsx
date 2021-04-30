@@ -209,16 +209,16 @@ class Measure extends Component {
             // Search for NOT connection
             for (k = j + 1; k < this.props.circuit.length; k++) {
               if (
-                this.props.circuit[k][i] === "cnotUp" ||
-                this.props.circuit[k][i] === "cnotDown"
+                this.props.circuit[k][i] === "cnot-up" ||
+                this.props.circuit[k][i] === "cnot-down"
               ) {
                 tmpStateVector = this.evalCNOTGate(j, k, tmpStateVector);
                 break;
               }
             }
             break;
-          case "cnotDown":
-          case "cnotUp":
+          case "cnot-down":
+          case "cnot-up":
             if (foundCNOT) break;
             foundCNOT = true;
             // Search for trigger

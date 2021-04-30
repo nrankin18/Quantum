@@ -20,8 +20,8 @@ class Qubit extends Component {
           if (
             gate === "h" ||
             gate === "cnot" ||
-            gate === "cnotUp" ||
-            gate === "cnotDown" ||
+            gate === "cnot-up" ||
+            gate === "cnot-down" ||
             gate === "t" ||
             gate === "s" ||
             gate === "z" ||
