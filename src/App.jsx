@@ -275,16 +275,17 @@ class App extends Component {
     tmpCircuit[qubit][index] = null;
 
     switch (gate) {
+      case "swap":
       case "cnot":
         var i = qubit;
         while (
           ++i < tmpCircuit.length &&
-          tmpCircuit[i][index] === "trigopt-cnot"
+          tmpCircuit[i][index] === "trigopt-" + gate
         ) {
           tmpCircuit[i][index] = null;
         }
         i = qubit;
-        while (--i >= 0 && tmpCircuit[i][index] === "trigopt-cnot") {
+        while (--i >= 0 && tmpCircuit[i][index] === "trigopt-" + gate) {
           tmpCircuit[i][index] = null;
         }
         break;
@@ -304,6 +305,26 @@ class App extends Component {
           ++i < tmpCircuit.length &&
           (tmpCircuit[i][index] === "connect" ||
             tmpCircuit[i][index] === "trig")
+        ) {
+          tmpCircuit[i][index] = null;
+        }
+        break;
+      case "swap-up":
+        i = qubit;
+        while (
+          --i >= 0 &&
+          (tmpCircuit[i][index] === "connect" ||
+            tmpCircuit[i][index] === "swap-down")
+        ) {
+          tmpCircuit[i][index] = null;
+        }
+        break;
+      case "swap-down":
+        i = qubit;
+        while (
+          ++i < tmpCircuit.length &&
+          (tmpCircuit[i][index] === "connect" ||
+            tmpCircuit[i][index] === "swap-up")
         ) {
           tmpCircuit[i][index] = null;
         }
