@@ -140,7 +140,7 @@ body {
 .gate.cnot {
   background-color: lightsalmon;
   font-size: 10px;
-  z-index: 10 i !important;
+  z-index: 10 !important;
 }
 .cnot-up {
   width: 2px;

@@ -134,7 +134,7 @@ class Measure extends Component {
     return tmpStateVector;
   }
 
-  // Function called when CNOT gate or trigger encountered
+  // Function called when CNOT gate encountered
   // m = trigger, n = NOT
   evalCNOTGate(m, n, tmpStateVector) {
     const N = this.props.circuit.length;
@@ -166,6 +166,36 @@ class Measure extends Component {
     return tmpStateVector;
   }
 
+  // Function called when SWAP gate encountered
+  evalSWAPGate(m, n, tmpStateVector) {
+    const N = this.props.circuit.length;
+    const u = Math.min(m, n);
+    const v = Math.max(m, n);
+    for (var x = 0; x < Math.pow(2, u); x++) {
+      for (var y = 0; y < Math.pow(2, v - u - 1); y++) {
+        for (var z = 0; z < Math.pow(2, N - v - 1); z++) {
+          const index0 =
+            x * Math.pow(2, N - u) +
+            y * Math.pow(2, N - v) +
+            z +
+            Math.pow(2, N - m - 1);
+          const index1 =
+            x * Math.pow(2, N - u) +
+            y * Math.pow(2, N - v) +
+            z +
+            Math.pow(2, N - n - 1);
+          const change = this.swap(
+            tmpStateVector[index0],
+            tmpStateVector[index1]
+          );
+          tmpStateVector[index0] = change.a;
+          tmpStateVector[index1] = change.b;
+        }
+      }
+    }
+    return tmpStateVector;
+  }
+
   // Called when circuit is updated to calculate new output (ignores unconnected CNOT gates)
   evaluateCircuit() {
     console.log("Calculating result of following circuit:", this.props.circuit);
@@ -181,7 +211,6 @@ class Measure extends Component {
     // Column-major traversal
     // i = gate number, j = qubit number
     for (i = 0; i < this.props.circuit[0].length; i++) {
-      let foundCNOT = false; // Marks if CNOT has already been evaluated (looks for both trigger and CNOT)
       var k;
       for (var j = 0; j < this.props.circuit.length; j++) {
         switch (this.props.circuit[j][i]) {
@@ -203,28 +232,29 @@ class Measure extends Component {
           case "y":
             tmpStateVector = this.evalYGate(j, tmpStateVector);
             break;
-          case "trig":
-            if (foundCNOT) break;
-            foundCNOT = true;
-            // Search for NOT connection
-            for (k = j + 1; k < this.props.circuit.length; k++) {
-              if (
-                this.props.circuit[k][i] === "cnot-up" ||
-                this.props.circuit[k][i] === "cnot-down"
-              ) {
-                tmpStateVector = this.evalCNOTGate(j, k, tmpStateVector);
+          case "cnot-up":
+            // Search for trigger
+            for (k = j - 1; k >= 0; k--) {
+              if (this.props.circuit[k][i] === "trig") {
+                tmpStateVector = this.evalCNOTGate(k, j, tmpStateVector);
                 break;
               }
             }
             break;
           case "cnot-down":
-          case "cnot-up":
-            if (foundCNOT) break;
-            foundCNOT = true;
             // Search for trigger
             for (k = j + 1; k < this.props.circuit.length; k++) {
               if (this.props.circuit[k][i] === "trig") {
                 tmpStateVector = this.evalCNOTGate(k, j, tmpStateVector);
+                break;
+              }
+            }
+            break;
+          case "swap-up":
+            // Search for other side
+            for (k = j - 1; k >= 0; k--) {
+              if (this.props.circuit[k][i] === "swap-down") {
+                tmpStateVector = this.evalSWAPGate(k, j, tmpStateVector);
                 break;
               }
             }
