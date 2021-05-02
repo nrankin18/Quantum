@@ -65,6 +65,16 @@ class Sidebar extends Component {
           GitHub
         </a>
         <br />
+        <br />
+        Please submit bug reports to{" "}
+        <a
+          href="https://github.com/nrankin18/quantum/issues"
+          target="_blank"
+          rel="noreferrer"
+        >
+          GitHub
+        </a>
+        <br />
         <div className="copyright">Copyright © 2021 Nathan Rankin</div>
       </div>
     );
