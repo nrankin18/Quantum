@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/quantum/static/css/main.28297ba2.chunk.css",
-    "main.js": "/quantum/static/js/main.f4ca464a.chunk.js",
-    "main.js.map": "/quantum/static/js/main.f4ca464a.chunk.js.map",
+    "main.js": "/quantum/static/js/main.74f74a36.chunk.js",
+    "main.js.map": "/quantum/static/js/main.74f74a36.chunk.js.map",
     "runtime-main.js": "/quantum/static/js/runtime-main.0eb33853.js",
     "runtime-main.js.map": "/quantum/static/js/runtime-main.0eb33853.js.map",
     "static/css/2.d0685048.chunk.css": "/quantum/static/css/2.d0685048.chunk.css",
@@ -19,6 +19,6 @@
     "static/css/2.d0685048.chunk.css",
     "static/js/2.f7b5300c.chunk.js",
     "static/css/main.28297ba2.chunk.css",
-    "static/js/main.f4ca464a.chunk.js"
+    "static/js/main.74f74a36.chunk.js"
   ]
 }
