@@ -98,8 +98,8 @@ class Measure extends Component {
     return tmpStateVector;
   }
 
-  // Function called when X gate encountered
-  evalXGate(j, tmpStateVector) {
+  // Function called when Y gate encountered
+  evalYGate(j, tmpStateVector) {
     const N = this.props.circuit.length;
     for (var k = 0; k < Math.pow(2, j); k++) {
       for (var l = 0; l < Math.pow(2, N - j - 1); l++) {
@@ -116,8 +116,8 @@ class Measure extends Component {
     return tmpStateVector;
   }
 
-  // Function called when Y gate encountered
-  evalYGate(j, tmpStateVector) {
+  // Function called when X gate encountered
+  evalXGate(j, tmpStateVector) {
     const N = this.props.circuit.length;
     for (var k = 0; k < Math.pow(2, j); k++) {
       for (var l = 0; l < Math.pow(2, N - j - 1); l++) {
