@@ -291,21 +291,19 @@ class App extends Component {
         break;
       case "cnot-up":
         i = qubit;
-        while (
-          --i >= 0 &&
-          (tmpCircuit[i][index] === "connect" ||
-            tmpCircuit[i][index] === "trig")
-        ) {
+        while (--i >= 0 && tmpCircuit[i][index] === "connect") {
+          tmpCircuit[i][index] = null;
+        }
+        if (tmpCircuit[i][index] === "trig") {
           tmpCircuit[i][index] = null;
         }
         break;
       case "cnot-down":
         i = qubit;
-        while (
-          ++i < tmpCircuit.length &&
-          (tmpCircuit[i][index] === "connect" ||
-            tmpCircuit[i][index] === "trig")
-        ) {
+        while (++i < tmpCircuit.length && tmpCircuit[i][index] === "connect") {
+          tmpCircuit[i][index] = null;
+        }
+        if (tmpCircuit[i][index] === "trig") {
           tmpCircuit[i][index] = null;
         }
         break;
