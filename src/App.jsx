@@ -381,6 +381,20 @@ class App extends Component {
   onRemoveQubit() {
     var tmpCircuit = this.state.circuit;
     if (tmpCircuit.length > 1) {
+      for (var i = 0; i < tmpCircuit[0].length; i++) {
+        if (tmpCircuit[tmpCircuit.length - 1][i] === "trig") {
+          for (var j = tmpCircuit.length - 1; j >= 0; j--) {
+            if (tmpCircuit[j][i] === "cnot-down") {
+              this.onDeleteGate(j, i, tmpCircuit[j][i]);
+            }
+          }
+        }
+        this.onDeleteGate(
+          tmpCircuit.length - 1,
+          i,
+          tmpCircuit[tmpCircuit.length - 1][i]
+        );
+      }
       tmpCircuit.pop();
     }
     this.setState({ circuit: tmpCircuit });
