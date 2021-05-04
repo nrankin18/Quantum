@@ -16,7 +16,7 @@ class Toolbar extends Component {
               fontSize: "0.8em",
             }}
           >
-            Version 1.4.6
+            Version 1.4.7
           </div>
           Spring 2021 IQC Quantum Computer Simulator
           <div style={{ position: "absolute", right: "40px", top: "0" }}>

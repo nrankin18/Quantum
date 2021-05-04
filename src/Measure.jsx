@@ -109,8 +109,8 @@ class Measure extends Component {
           tmpStateVector[index0],
           tmpStateVector[index1]
         );
-        tmpStateVector[index0] = math.evaluate("i*(" + change.a + ")");
-        tmpStateVector[index1] = math.evaluate("-i*(" + change.b + ")");
+        tmpStateVector[index0] = math.evaluate("-i*(" + change.a + ")");
+        tmpStateVector[index1] = math.evaluate("i*(" + change.b + ")");
       }
     }
     return tmpStateVector;
